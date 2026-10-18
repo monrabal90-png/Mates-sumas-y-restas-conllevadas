@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Repaso de Mates</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2d2a4a;--mut:#6f6a8f;--line:#e5defa;--pri:#ff7a45;--priD:#d9531e;--blue:#3b82f6;--blueD:#1f5ec9;--green:#22b573}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.3;background:linear-gradient(180deg,#7dd3fc 0%,#c4b5fd 55%,#fbcfe8 100%) fixed;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+main{max-width:560px;margin:0 auto;padding:14px}
+.hide{display:none!important}
+.card{background:#fff;border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 6px 0 rgba(45,42,74,.12)}
+.center{text-align:center}
+h1{font-size:30px;margin:0;line-height:1.05}
+h2{font-size:21px;margin:0 0 4px}
+p{margin:4px 0}
+.mut{color:var(--mut);font-size:15px}
+.hero{display:flex;gap:12px;align-items:center}
+.mascot{font-size:56px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+.mascot.sm{font-size:40px;animation:none}
+.mascot.big{font-size:84px}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.pills{display:flex;gap:8px;margin-top:10px}
+.pill{background:#fff6d6;border-radius:99px;padding:6px 14px;font-weight:700}
+.btn{font:inherit;font-weight:700;border:0;border-radius:16px;padding:14px 18px;color:#fff;background:var(--pri);box-shadow:0 5px 0 var(--priD);cursor:pointer;width:100%;margin-top:12px}
+.btn.blue{background:var(--blue);box-shadow:0 5px 0 var(--blueD)}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:0 5px 0 var(--line);border:2px solid var(--line)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.btn.sm{width:auto;padding:8px 14px;font-size:15px;margin-top:6px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.seg button{font:inherit;font-weight:700;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:14px;padding:10px 6px;cursor:pointer}
+.seg button.on{border-color:var(--pri);background:#fff0e8}
+.lvs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.lv{font:inherit;color:var(--ink);background:#f5f2ff;border:0;border-radius:16px;padding:10px 4px;box-shadow:0 4px 0 var(--line);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.lv:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.lv .ic{font-size:34px}
+.lv small{color:var(--mut)}
+.lv.lock{opacity:.55}
+.lv .stl{font-size:15px;letter-spacing:1px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700}
+.tbar{position:relative;height:26px;border-radius:99px;background:#eee9ff;overflow:hidden;margin-top:10px}
+#tfill{height:100%;background:var(--green);width:100%;transition:width .25s linear}
+#tfill.low{background:#ef4444}
+#ttxt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.say{display:flex;gap:8px;align-items:center;margin-top:12px}
+.bubble{flex:1;border:3px solid #7dd3fc;background:#e0f2fe;border-radius:18px;padding:10px 12px;font-weight:600;font-size:16px;min-height:62px;display:flex;align-items:center}
+.bubble.ok{background:#dcfce7;border-color:#86efac}
+.bubble.doubt{background:#fef3c7;border-color:#fcd34d}
+#board{display:grid;gap:6px;margin:14px 0 4px;align-items:center}
+.chip{color:#fff;font-weight:700;font-size:14px;text-align:center;border-radius:8px;padding:3px 0}
+.cell{height:56px;min-width:0;display:flex;align-items:center;justify-content:center;border:3px solid var(--line);border-radius:14px;background:#faf8ff;font:700 30px "Fredoka",monospace;color:var(--ink);padding:0;position:relative;text-align:center}
+.cell.sm{height:40px;font-size:22px;color:var(--blue)}
+.cell.big2{font-size:22px}
+.cell.tap{border:3px dashed var(--blue);cursor:pointer;background:#eef4ff;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px rgba(59,130,246,.25)}}
+.cell .ghost{opacity:.5}
+.cell .old{position:absolute;top:1px;left:6px;font-size:13px;text-decoration:line-through;color:var(--mut)}
+input.cell{width:100%}
+input.cell:focus{outline:none;border-color:var(--pri);background:#fff}
+.sg{text-align:center;font:700 26px "Fredoka",monospace;color:var(--mut)}
+.ln{grid-column:1 / -1;height:5px;border-radius:3px;background:var(--ink)}
+.bigstars{font-size:46px;letter-spacing:4px;margin:6px 0}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+.conf span{position:absolute;top:-50px;animation:fall 2.2s ease-in forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(360deg)}}
+.tops{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.qtext{font-size:19px;font-weight:600;margin:10px 0}
+.opts{display:grid;gap:8px;margin:8px 0}
+.opt{font:inherit;font-weight:600;color:var(--ink);background:#f5f2ff;border:0;border-radius:14px;padding:12px;box-shadow:0 4px 0 var(--line);cursor:pointer}
+.opt:disabled{opacity:.5}
+.qin{width:100%;font:700 26px "Fredoka",monospace;text-align:center;padding:12px;border:3px solid var(--line);border-radius:14px;margin:8px 0}
+.qin:focus{outline:none;border-color:var(--pri)}
+.chart{width:100%;height:auto;display:block;margin:4px 0}
+.big{display:grid;grid-template-columns:66px 1fr;column-gap:12px;align-items:center;width:100%;text-align:left;font:inherit;border:0;border-radius:24px;padding:16px;margin-bottom:14px;color:#fff;cursor:pointer;box-shadow:0 7px 0 rgba(0,0,0,.22)}
+.big:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
+.big .bi{grid-row:1/3;font-size:48px;text-align:center;line-height:1}
+.big .bt{font-size:27px;font-weight:700;line-height:1.1}
+.big .bd{font-size:16px;opacity:.95}
+.bgreen{background:#22b573}.borange{background:#ff7a45}.bblue{background:#3b82f6}
+.calc{border:3px dashed var(--line);border-radius:18px;padding:10px;margin-top:14px;background:#faf8ff}
+.clab{font-weight:700;font-size:16px;margin-bottom:8px}
+.cw{margin-bottom:8px}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr) 14px minmax(0,1fr) 22px;gap:4px;align-items:center}
+.ci{width:100%;min-width:0;height:46px;font:700 20px "Fredoka",monospace;text-align:center;border:3px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:0}
+.ci:focus{outline:none;border-color:var(--pri)}
+.cop{height:46px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:700 24px "Fredoka",sans-serif;cursor:pointer;padding:0;margin:0;width:100%}
+.ceq{text-align:center;font-weight:700}
+.cst{font-size:16px;text-align:center}
+.cpre{font:700 20px "Courier New",monospace;white-space:pre;background:#fff;border-radius:10px;padding:6px 10px;margin-top:6px;display:inline-block}
+.cbt{display:flex;gap:6px;flex-wrap:wrap}
+.sbar{height:12px;border-radius:8px;background:var(--line);overflow:hidden;margin:6px 0 12px}
+.sbar div{height:100%;background:var(--green);transition:width .3s}
+.scard{background:#fff;border:0;border-top:10px solid var(--pri);border-radius:20px;padding:16px;text-align:center;box-shadow:0 5px 0 var(--line);margin-bottom:12px}
+.sic{font-size:60px;line-height:1.1}
+.stx{font-size:19px;font-weight:600;margin-top:8px;text-align:left}
+.snav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (prefers-reduced-motion:reduce){.mascot,.cell.tap,.conf span{animation:none}}
+</style>
+<style>
+.homelink{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;background:#fff;color:#2d2a4a;font:700 15px "Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;text-decoration:none;border-radius:99px;padding:9px 16px;box-shadow:0 4px 0 rgba(0,0,0,.2);border:2px solid #e5defa}
+.homelink:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+main{padding-bottom:76px!important}
+</style>
+</head>
+<body>
+<main>
+
+<section id="s-home">
+  <div class="card center">
+    <div class="mascot big">🦊</div>
+    <h1>¡Hola! Vamos a hacer mates</h1>
+    <p class="mut">¿Qué quieres hacer hoy?</p>
+    <div class="pills" style="justify-content:center"><span class="pill" id="tstars">⭐ 0</span><span class="pill" id="tcoins">🪙 0</span></div>
+  </div>
+  <button class="big bgreen" id="go-study"><span class="bi">📖</span><span class="bt">Aprender</span><span class="bd">Lee y mira ejemplos</span></button>
+  <button class="big borange" id="go-prac"><span class="bi">✏️</span><span class="bt">Practicar</span><span class="bd">Ejercicios para entrenar</span></button>
+  <button class="big bblue" id="go-jugar"><span class="bi">🎮</span><span class="bt">Jugar</span><span class="bd">Misiones con estrellas y monedas</span></button>
+  <div class="center"><button class="btn ghost sm" id="wipe">Borrar mi progreso</button></div>
+</section>
+
+<section id="s-jugar" class="hide">
+  <div class="card">
+    <div class="top"><h2>🎮 Jugar</h2><button class="btn ghost sm" id="jb">← Atrás</button></div>
+    <p class="mut">Paso 1: elige cómo quieres jugar.</p>
+    <div class="seg">
+      <button id="m-calm">🌱 Tranquilo</button>
+      <button id="m-time">⏱ Con tiempo</button>
+    </div>
+    <p class="mut center" id="mdesc"></p>
+  </div>
+  <div class="card">
+    <h2>➕ Sumas</h2>
+    <p class="mut">Paso 2: elige un nivel. Si llegas a 10, ¡agrupa!</p>
+    <div class="lvs" id="lv-sum"></div>
+  </div>
+  <div class="card">
+    <h2>➖ Restas</h2>
+    <p class="mut">Paso 2: elige un nivel. Si no puedes restar, ¡desagrupa!</p>
+    <div class="lvs" id="lv-sub"></div>
+  </div>
+  <p class="mut center" id="hnote" style="color:#fff;font-weight:600"></p>
+</section>
+
+<section id="s-prac" class="hide">
+  <div class="card">
+    <div class="top"><h2>✏️ Practicar</h2><button class="btn ghost sm" id="pb">← Atrás</button></div>
+    <p class="mut">Elige un tema y haz ejercicios. ¡Puedes usar la zona de cálculo!</p>
+  </div>
+  <div class="card">
+    <h2>📚 Temas del libro</h2>
+    <div class="tops" id="tops"></div>
+  </div>
+  <div class="card">
+    <h2>📕 Sumas y restas del libro</h2>
+    <p class="mut">Las cuentas de las páginas del libro, con agrupar y desagrupar.</p>
+    <div class="seg"><button id="bk-sum">➕ Sumas</button><button id="bk-sub">➖ Restas</button></div>
+  </div>
+</section>
+
+<section id="s-play" class="hide">
+  <div class="card">
+    <div class="top"><span id="pw"></span><span id="pc"></span></div>
+    <div class="top mut" style="font-weight:600"><span id="pop"></span><span id="pmode"></span></div>
+    <div class="tbar hide" id="tbar"><div id="tfill"></div><span id="ttxt"></span></div>
+    <div class="say"><div class="mascot sm">🦊</div><div class="bubble" id="msg"></div></div>
+    <div id="board"></div>
+    <button class="btn" id="check">✔ Comprobar</button>
+    <button class="btn blue" id="next">Siguiente ▶</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+      <button class="btn ghost sm" id="hint" style="width:100%">💡 Ayuda</button>
+      <button class="btn ghost sm" id="reset" style="width:100%">↺ Otra vez</button>
+      <button class="btn ghost sm" id="exit" style="width:100%">🏠 Salir</button>
+    </div>
+  </div>
+</section>
+
+<section id="s-study" class="hide">
+  <div class="card">
+    <div class="top"><h2 id="stt">📖 Estudia</h2><button class="btn ghost sm" id="stb">🏠 Inicio</button></div>
+    <div id="stbody"></div>
+  </div>
+</section>
+
+<section id="s-quiz" class="hide">
+  <div class="card">
+    <div class="top"><span id="qt"></span><span id="qc"></span></div>
+    <div class="top mut" style="font-weight:600"><span id="qi"></span></div>
+    <div class="say"><div class="mascot sm">🦊</div><div class="bubble" id="qmsg"></div></div>
+    <div id="qbody"></div>
+    <button class="btn" id="qcheck">✔ Comprobar</button>
+    <button class="btn blue hide" id="qnext">Siguiente ▶</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="btn ghost sm" id="qhint" style="width:100%">💡 Ayuda</button>
+      <button class="btn ghost sm" id="qexit" style="width:100%">🏠 Salir</button>
+    </div>
+  </div>
+</section>
+
+<section id="s-res" class="card center hide">
+  <div class="mascot big">🦊</div>
+  <h2 id="rtitle"></h2>
+  <div class="bigstars" id="rstars"></div>
+  <p id="rtext"></p>
+  <button class="btn" id="r-next">Siguiente nivel ▶</button>
+  <button class="btn blue" id="r-again">Repetir</button>
+  <button class="btn ghost" id="r-home">Volver</button>
+</section>
+
+</main>
+<div class="conf" id="conf"></div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var NP=["unidades","decenas","centenas","unidades de millar","decenas de millar"];
+  var SP=["unidad","decena","centena","unidad de millar","decena de millar"];
+  var LB=["U","D","C","UM","DM"];
+  var COL=["#2f6fe4","#1f9d55","#d64545","#8a4fd6","#a8650a"];
+  var LV=[{d:2,name:"Isla de las Unidades",icon:"🏝️"},{d:3,name:"Valle de las Centenas",icon:"🏞️"},{d:4,name:"Montaña de los Millares",icon:"⛰️"}];
+  var TL={2:90,3:150,4:240};
+  var KEY="sr_game_v2",P={stars:{},coins:0},mode="calm",S=null,G=null,Z=null,lastKind="mission",wipeSure=false;
+
+  function load(){try{var d=JSON.parse(localStorage.getItem(KEY));if(d&&d.stars)P=d}catch(e){}}
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
+  function sk(t,d,m){return t+d+m}
+  function best(t,d){return Math.max(P.stars[sk(t,d,"calm")]||0,P.stars[sk(t,d,"time")]||0)}
+  function unlocked(t,d){return d===2||best(t,d-1)>=1}
+  function stars(n){return "⭐".repeat(n)+"☆".repeat(3-n)}
+  function show(id){["s-home","s-jugar","s-prac","s-play","s-res","s-quiz","s-study"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});window.scrollTo(0,0)}
+  function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+  function digits(n){return String(n).split("").reverse().map(Number)}
+  function el(cls,txt){var d=document.createElement("div");d.className=cls;if(txt!==undefined)d.textContent=txt;return d}
+  function setMsg(t,k,id){var m=$(id||"msg");m.textContent=t;m.className="bubble "+(k||"info")}
+
+  function hasCarry(a,b){var x=digits(a),y=digits(b),c=0;for(var i=0;i<Math.max(x.length,y.length);i++){var s=(x[i]||0)+(y[i]||0)+c;if(s>=10)return true;c=0}return false}
+  function hasBorrow(a,b){var x=digits(a),y=digits(b);for(var i=0;i<y.length;i++){if(y[i]>x[i])return true}return false}
+  function make(type,d){
+    var lo=Math.pow(10,d-1),hi=Math.pow(10,d)-1,want=Math.random()<0.7,a,b,t=0;
+    do{
+      a=rnd(lo,hi);b=rnd(lo,hi);t++;
+      if(type==="sub"&&b>a){var z=a;a=b;b=z}
+      if(type==="sub"&&a===b)continue;
+      var f=type==="sum"?hasCarry(a,b):hasBorrow(a,b);
+      if(f===want)break;
+    }while(t<500);
+    return {type:type,d:d,a:a,b:b,r:type==="sum"?a+b:a-b};
+  }
+  function tcarry(A,B,W){var r=[0],c=0;for(var i=0;i<W;i++){var t=(A[i]||0)+(B[i]||0)+c;c=t>=10?1:0;r.push(c)}return r}
+  function init(c){
+    var A=digits(c.a),B=digits(c.b),n=Math.max(A.length,B.length),W=c.type==="sum"?n+1:n,i,top=[],carry=[];
+    for(i=0;i<W;i++)top.push(A[i]||0);
+    for(i=0;i<=W;i++)carry.push(0);
+    return {c:c,A:A,B:B,n:n,W:W,top:top,carry:carry,typed:[],over:false,tries:0,tc:tcarry(A,B,W)};
+  }
+
+  function render(focus){
+    var b=$("board"),W=S.W,c=S.c,p,k,live=!S.over;
+    b.textContent="";
+    b.style.gridTemplateColumns="26px repeat("+W+",minmax(0,1fr))";
+    b.appendChild(el("sg"));
+    for(k=0;k<W;k++){p=W-1-k;var ch=el("chip",LB[p]);ch.style.background=COL[p];b.appendChild(ch)}
+    if(c.type==="sum"){
+      b.appendChild(el("sg"));
+      for(k=0;k<W;k++){
+        p=W-1-k;
+        var tc=live&&p>=1,ce=el("cell sm"+(tc?" tap":""));
+        if(S.carry[p])ce.textContent="1";
+        else if(tc){var g=document.createElement("span");g.className="ghost";g.textContent="+1";ce.appendChild(g)}
+        if(tc)ce.onclick=(function(q){return function(){tapCarry(q)}})(p);
+        b.appendChild(ce);
+      }
+    }
+    b.appendChild(el("sg"));
+    for(k=0;k<W;k++){
+      p=W-1-k;
+      var v=S.top[p],isSub=c.type==="sub",blank=!isSub&&p>=S.A.length;
+      var tp=el("cell"+(v>=10?" big2":"")+(isSub&&live&&p>=1&&v>=1?" tap":""));
+      if(!blank){
+        if(isSub&&v!==S.A[p])tp.appendChild(el("old",S.A[p]));
+        tp.appendChild(document.createTextNode(v));
+      }
+      if(isSub&&live&&p>=1)tp.onclick=(function(q){return function(){tapTop(q)}})(p);
+      b.appendChild(tp);
+    }
+    b.appendChild(el("sg",c.type==="sum"?"+":"−"));
+    for(k=0;k<W;k++){p=W-1-k;b.appendChild(el("cell",p<S.B.length?String(S.B[p]):""))}
+    b.appendChild(el("ln"));
+    b.appendChild(el("sg"));
+    for(k=0;k<W;k++){
+      p=W-1-k;
+      var inp=document.createElement("input");
+      inp.className="cell";inp.inputMode="numeric";inp.maxLength=1;inp.autocomplete="off";
+      inp.value=S.typed[p]||"";inp.disabled=!live;
+      inp.oninput=(function(q){return function(){
+        var v2=this.value.replace(/\D/g,"").slice(-1);this.value=v2;S.typed[q]=v2;
+        if(v2){var pv=this.previousElementSibling;if(pv&&pv.tagName==="INPUT")pv.focus()}
+      }})(p);
+      inp.onkeydown=function(e){if(e.key==="Enter")check()};
+      b.appendChild(inp);
+    }
+    if(focus){var all=b.querySelectorAll("input");var f=all[all.length-1];if(f)f.focus()}
+  }
+
+  function tapCarry(q){
+    if(S.over)return;
+    if(S.carry[q]){setMsg("Ya te llevas 1 aquí.","info");return}
+    if(!S.tc[q]){setMsg("🤔 ¿Seguro? Vuelve a sumar la columna de la derecha: ¿llegas a 10 o más?","doubt");return}
+    S.carry[q]=1;
+    setMsg("✨ Te llevas 1 "+SP[q]+": has agrupado 10 "+NP[q-1]+" en 1 "+SP[q]+".","info");
+    render(false);
+  }
+  function needs(q){
+    if(q<0)return false;
+    if(S.top[q]<(S.B[q]||0))return true;
+    if(S.top[q]===0&&q>=1)return needs(q-1);
+    return false;
+  }
+  function tapTop(p){
+    if(S.over||p<1)return;
+    if(S.top[p]<1){setMsg("Aquí no queda nada para desagrupar. Prueba con otra casilla de la izquierda.","info");return}
+    if(!needs(p-1)){setMsg("🤔 ¿Seguro? Aquí todavía no hace falta desagrupar. Fíjate en qué columna no puedes restar.","doubt");return}
+    S.top[p]--;S.top[p-1]+=10;
+    setMsg("✨ Has desagrupado 1 "+SP[p]+" en 10 "+NP[p-1]+".","info");
+    render(false);
+  }
+
+  function check(){
+    if(S.over)return;
+    var p,str="",started=false,missing=false;
+    for(p=S.W-1;p>=0;p--){
+      var t=S.typed[p]||"";
+      if(t===""){if(started)missing=true}else{started=true;str+=t}
+    }
+    if(!started||missing){setMsg("✏️ Completa todas las casillas de tu resultado.","doubt");return}
+    if(parseInt(str,10)===S.c.r){solved();return}
+    S.tries++;
+    setMsg(S.tries===1?"🤔 Mira otra vez tu operación. ¿Seguro de que todas las columnas están bien?":"🤔 Repasa cada columna empezando por las unidades. ¿Has agrupado o desagrupado donde hacía falta? Puedes usar 💡 Ayuda.","doubt");
+  }
+
+  function hint(){
+    if(S.over)return;
+    G.help=true;
+    var m,p;
+    if(S.c.type==="sum"){
+      m="Empieza por las unidades y suma cada columna. Si llegas a 10 o más, agrupa 10 en 1 de la columna siguiente: escribe lo que sobra y toca la casilla de arriba de la columna de al lado para llevarte 1.";
+    }else{
+      for(p=0;p<S.W;p++){if(S.top[p]<(S.B[p]||0))break}
+      if(p<S.W)m="En las "+NP[p]+" quieres quitar "+(S.B[p]||0)+" a "+S.top[p]+" y no se puede. Desagrupa: toca el número de la columna de la izquierda y 1 "+SP[p+1]+" se convierte en 10 "+NP[p]+". Si hay un 0, sigue desagrupando hacia la izquierda.";
+      else m="Resta cada columna de derecha a izquierda y escribe el resultado debajo. Si arriba hay un número menor que el de abajo, desagrupa tocando la casilla de la izquierda.";
+    }
+    setMsg("💡 "+m,"info");
+  }
+
+  // ---- Misión ----
+  function stopTimer(){if(G&&G.tm){clearInterval(G.tm);G.tm=null}}
+  function tick(){
+    var tot=TL[G.d]*1000,left=Math.max(0,G.end-Date.now());
+    $("tfill").style.width=(left/tot*100)+"%";
+    $("tfill").className=left/tot<0.2?"low":"";
+    $("ttxt").textContent="⏱ "+Math.ceil(left/1000)+" s";
+    if(left<=0&&!S.over)timeout();
+  }
+  function endButtons(){
+    ["check","hint","reset"].forEach(function(i){$(i).classList.add("hide")});
+    $("next").textContent=G.i>=5?"Ver resultado 🏁":"Siguiente ▶";
+    $("next").classList.remove("hide");
+  }
+  function solved(){
+    var left=G.mode==="time"?Math.max(0,G.end-Date.now()):0,bonus=Math.ceil(left/5000),gain=10+bonus;
+    stopTimer();S.over=true;render(false);
+    G.solved++;G.coins+=gain;$("pc").textContent="🪙 "+G.coins;
+    setMsg("🎉 ¡Genial! "+S.c.a+(S.c.type==="sum"?" + ":" − ")+S.c.b+" = "+S.c.r+". +"+gain+" 🪙","ok");
+    confetti();endButtons();
+  }
+  function timeout(){
+    stopTimer();S.over=true;render(false);
+    setMsg("⏰ ¡Se acabó el tiempo! Era "+S.c.r+". Vamos con la siguiente.","info");
+    endButtons();
+  }
+  function nextOp(){
+    G.i++;
+    if(G.i>5){result();return}
+    S=init(G.book?bookOp():make(G.t,G.d));
+    $("pop").textContent="Operación "+G.i+" de 5";
+    $("pc").textContent="🪙 "+G.coins;
+    ["check","hint","reset"].forEach(function(i){$(i).classList.remove("hide")});
+    $("next").classList.add("hide");
+    setMsg(G.t==="sum"?"¡Vamos! Empieza por las unidades (U) y ve hacia la izquierda. Si llegas a 10, toca arriba para agrupar.":"¡Vamos! Empieza por las unidades (U) y ve hacia la izquierda. Si no puedes restar, toca arriba para desagrupar.","info");
+    render(true);
+    if(G.mode==="time"){G.end=Date.now()+TL[G.d]*1000;G.tm=setInterval(tick,250);tick()}
+  }
+  function startMission(t,d,book){
+    var L=book?{icon:"📖",name:"Operaciones del libro"}:LV[d-2],md=book?"calm":mode;
+    G={t:t,d:d,mode:md,book:!!book,list:book?shuf(BOOK[t]).slice(0,5):null,i:0,solved:0,help:false,coins:0,tm:null,end:0};
+    lastKind="mission";
+    $("pw").textContent=L.icon+" "+L.name;
+    $("pmode").textContent=md==="time"?"⏱ Contrarreloj":"🌱 Tranquilo";
+    $("tbar").classList.toggle("hide",md!=="time");
+    show("s-play");nextOp();
+  }
+  function result(){
+    var ok=G.solved>=3,st=!ok?0:1+(G.solved===5?1:0)+(G.solved===5&&!G.help?1:0),k=G.book?sk(G.t,"book","calm"):sk(G.t,G.d,G.mode);
+    if(ok&&st>(P.stars[k]||0))P.stars[k]=st;
+    P.coins+=G.coins;persist();
+    $("rtitle").textContent=ok?"¡Misión cumplida!":"¡Casi lo consigues!";
+    $("rstars").textContent=stars(st);
+    $("rtext").textContent="Has resuelto "+G.solved+" de 5 operaciones y ganado "+G.coins+" 🪙."+(ok?(st<3?" Resuelve las 5 sin usar la ayuda para conseguir las 3 estrellas.":" ¡Las tres estrellas!"):" Necesitas resolver 3 para ganar una estrella. ¡Tú puedes!");
+    $("r-next").classList.toggle("hide",!(ok&&G.d<4&&!G.book));
+    show("s-res");
+    if(ok)confetti();
+  }
+
+  function confetti(){
+    var box=$("conf"),em=["🎉","⭐","✨","🎈","🪙"],i;
+    box.textContent="";
+    for(i=0;i<24;i++){var s=document.createElement("span");s.textContent=em[i%5];s.style.left=rnd(0,94)+"%";s.style.animationDelay=(Math.random()*0.6)+"s";s.style.fontSize=rnd(18,34)+"px";box.appendChild(s)}
+    setTimeout(function(){box.textContent=""},2900);
+  }
+
+  // ---- Mapa ----
+  var backTo="home";
+  function pills(){var tot=0,k;for(k in P.stars)tot+=P.stars[k];$("tstars").textContent="⭐ "+tot;$("tcoins").textContent="🪙 "+P.coins}
+  function home(){stopTimer();backTo="home";pills();show("s-home")}
+  function goBack(){if(backTo==="prac")practicar();else if(backTo==="jugar")jugar();else home()}
+  function jugar(){
+    stopTimer();backTo="jugar";
+    $("m-calm").classList.toggle("on",mode==="calm");$("m-time").classList.toggle("on",mode==="time");
+    $("mdesc").textContent=mode==="calm"?"Sin prisa: piensa con calma.":"Hay un reloj en cada operación. ¡Cuanto más rápido, más monedas!";
+    $("hnote").textContent="";
+    [["sum","lv-sum"],["sub","lv-sub"]].forEach(function(w){
+      var box=$(w[1]);box.textContent="";
+      LV.forEach(function(L){
+        var u=unlocked(w[0],L.d),st=P.stars[sk(w[0],L.d,mode)]||0,b=document.createElement("button");
+        b.className="lv"+(u?"":" lock");
+        b.innerHTML='<span class="ic">'+(u?L.icon:"🔒")+'</span><b>Nivel '+(L.d-1)+'</b><small>'+L.d+' cifras</small><span class="stl">'+(u?stars(st):"")+'</span>';
+        b.onclick=function(){
+          if(!u){$("hnote").textContent="Consigue una estrella en el nivel anterior para abrir este.";return}
+          startMission(w[0],L.d);
+        };
+        box.appendChild(b);
+      });
+    });
+    show("s-jugar");
+  }
+  function practicar(){
+    stopTimer();backTo="prac";
+    var tp=$("tops");tp.textContent="";
+    Object.keys(TOP).forEach(function(k){
+      var b=document.createElement("button");b.className="lv";
+      b.innerHTML='<span class="ic">'+TOP[k][1]+'</span><b>'+TOP[k][0]+'</b><span class="stl">'+stars(P.stars["q:"+k]||0)+'</span>';
+      b.onclick=function(){startQuiz(k)};tp.appendChild(b);
+    });
+    show("s-prac");
+  }
+
+  // ---- Datos del libro ----
+  function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+  function fmt(n){return n>=1000?String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."):String(n)}
+  var BOOK={
+    sum:[[5783,2439],[6365,1075],[508,232],[2439,2604],[5673,1245],[4328,367],[815,313],[876,2175],[2175,876]],
+    sub:[[2415,1673],[3641,2756],[7456,5675],[8325,754],[4152,2534],[8496,6628],[6427,256],[9788,1749],[8234,4729],[7014,864],[6324,846],[8234,57],[9250,3460],[9250,690],[3460,690]]
+  };
+  function bookOp(){var p=G.list[G.i-1],t=G.t;return {type:t,d:4,a:p[0],b:p[1],r:t==="sum"?p[0]+p[1]:p[0]-p[1]}}
+
+  function ap(n,u){var lo=Math.floor(n/u)*u,dg=Math.floor((n-lo)/(u/10));return dg>=5?lo+u:lo}
+  function genApr(){
+    var c=shuf([212,779,534,325,290,866]).slice(0,2).map(function(n){return [n,100]});
+    var m=shuf([2420,2932,4890,5179,6321,8936]).slice(0,2).map(function(n){return [n,1000]});
+    var d=[],x;
+    while(d.length<2){x=rnd(11,98);if(x%10!==5&&x%10!==0&&d.every(function(y){return y[0]!==x}))d.push([x,10])}
+    return shuf(c.concat(m,d)).map(function(p){
+      var n=p[0],u=p[1],lo=Math.floor(n/u)*u,dg=Math.floor((n-lo)/(u/10)),r=dg>=5?lo+u:lo,
+          nm=u===1000?"centenas":u===100?"decenas":"unidades",
+          wh=u===1000?"al millar más cercano":u===100?"a la centena más cercana":"a la decena más cercana";
+      return {q:"Aproxima "+fmt(n)+" "+wh+".",o:[fmt(lo),fmt(lo+u)],a:fmt(r),
+        h:"Busca entre qué números redondos está y compara la cifra de las "+nm+" con 5.",
+        s:fmt(n)+" está entre "+fmt(lo)+" y "+fmt(lo+u)+". La cifra de las "+nm+" es "+dg+", "+(dg>=5?"mayor":"menor")+" que 5: elegimos "+(dg>=5?"el mayor":"el menor")+", "+fmt(r)+"."};
+    });
+  }
+  var EST=[[12,27,"+",10],[76,14,"+",10],[39,43,"+",10],[84,21,"+",10],[135,479,"+",100],[689,360,"+",100],[819,690,"+",100],[576,328,"+",100],[49,21,"-",10],[73,36,"-",10],[64,18,"-",10],[387,169,"-",100],[829,596,"-",100],[578,142,"-",100],[51,78,"+",10],[82,67,"+",10],[86,43,"-",10],[98,74,"-",10],[367,236,"+",100],[518,483,"+",100],[740,290,"-",100],[875,642,"-",100]];
+  function genEst(){
+    return shuf(EST).slice(0,6).map(function(e){
+      var a=e[0],b=e[1],o=e[2],u=e[3],x=ap(a,u),y=ap(b,u),r=o==="+"?x+y:x-y,w=u===10?"decenas":"centenas",sg=o==="+"?" + ":" − ";
+      return {q:"Estima "+fmt(a)+sg+fmt(b)+" aproximando a las "+w+".",a:r,
+        h:"Aproxima cada número a las "+w+" y después "+(o==="+"?"suma":"resta")+" las aproximaciones.",
+        s:fmt(a)+" → "+fmt(x)+" y "+fmt(b)+" → "+fmt(y)+". Después: "+fmt(x)+sg+fmt(y)+" = "+fmt(r)+"."};
+    });
+  }
+  var PRO=[
+    ["Desde Oviedo hasta Almería hay 996 km. Esta mañana hemos recorrido 436 km y por la tarde 282 km. ¿Cuántos kilómetros nos faltan para llegar?",278,"1.º Lo recorrido: 436 + 282 = 718. 2.º Lo que falta: 996 − 718 = 278."],
+    ["En una frutería tenían una caja con 50 kg de naranjas. Por la mañana han vendido 21 kg y por la tarde han añadido 12 kg. ¿Cuántos kilos de naranjas tiene ahora la caja?",41,"50 − 21 = 29 y después 29 + 12 = 41."],
+    ["En un tren suben 134 personas al inicio. En la parada 1 bajan 27 y suben 54. ¿Cuántas personas viajan al salir de la parada 1?",161,"134 − 27 = 107 y después 107 + 54 = 161."],
+    ["Al llegar a la parada 2 viajaban 161 personas. Bajan 59 y suben 18. ¿Cuántas personas viajan al salir de la parada 2?",120,"161 − 59 = 102 y después 102 + 18 = 120."],
+    ["Pides un cacao de 4 € y una magdalena de 3 € y pagas con un billete de 10 €. ¿Cuánto dinero te devolverán?",3,"1.º Lo que cuesta todo: 4 + 3 = 7. 2.º Lo que te devuelven: 10 − 7 = 3."],
+    ["En un colegio se quedan a comer 137 estudiantes de Primaria y 68 de Infantil. El comedor tiene 295 plazas. ¿Cuántas plazas quedan sin ocupar?",90,"137 + 68 = 205 estudiantes. Después 295 − 205 = 90 plazas."],
+    ["He cargado en un camión un sofá de 137 kg y un armario de 68 kg. El camión puede llevar 295 kg más. ¿Cuántos kilos puede cargar en total?",500,"137 + 68 = 205 kg cargados. Después 295 + 205 = 500 kg."],
+    ["El teléfono móvil se inventó en 1973 y el teléfono fijo 97 años antes. ¿En qué año se inventó el teléfono fijo?",1876,"1.973 − 97 = 1.876."],
+    ["Pinar tiene 1.256 habitantes y Tomillo tiene 378 habitantes menos que Pinar. ¿Cuántos habitantes tiene Tomillo?",878,"1.256 − 378 = 878."],
+    ["María cobra 1.875 euros al mes y Raimundo cobra 108 euros menos. ¿Cuántos euros cobran entre los dos?",3642,"1.º Lo que cobra Raimundo: 1.875 − 108 = 1.767. 2.º Entre los dos: 1.875 + 1.767 = 3.642."],
+    ["La Torre de Pisa se construyó en 1370 y la Torre Eiffel en 1889. ¿Cuántos años pasaron entre las dos?",519,"1.889 − 1.370 = 519 años."],
+    ["Este año en la recogida solidaria se han obtenido 325 kilos de legumbres y 1.475 kilos de pasta. ¿Cuántos kilos se han obtenido en total?",1800,"325 + 1.475 = 1.800 kilos. ¡Más de 1.750 kilos!"],
+    ["Una casa rural tuvo 820 visitantes el año pasado. Eran españoles 225 y el resto de otros países. ¿Cuántos visitantes no eran españoles?",595,"820 − 225 = 595."],
+    ["Este mes han hecho una ruta de senderismo 1.429 adultos y 785 niñas y niños. ¿Cuántas personas han hecho la ruta?",2214,"1.429 + 785 = 2.214."],
+    ["En un museo hay 142 cuadros de paisajes y 98 de retratos. ¿Cuántos cuadros de paisajes más que de retratos hay?",44,"142 − 98 = 44."],
+    ["En enero visitaron el museo 1.435 personas, en febrero 540 y en marzo 4.750. ¿Cuántas personas visitaron el museo en total en esos tres meses?",6725,"1.435 + 540 = 1.975 y después 1.975 + 4.750 = 6.725."],
+    ["En una clínica veterinaria atendieron a 56 perros el lunes, 49 el martes y 62 el miércoles. ¿A cuántos perros atendieron los tres primeros días?",167,"56 + 49 + 62 = 167."],
+    ["El viernes atendieron en total a 64 animales: 38 eran perros y 17 gatos. ¿Cuántos no eran ni perros ni gatos?",9,"38 + 17 = 55. Después 64 − 55 = 9."],
+    ["Para mi fiesta invito a 3 primos, a 18 niños y niñas de mi clase y a 2 amigos del equipo de baloncesto. ¿Cuántos invitados habrá en total?",23,"3 + 18 + 2 = 23."],
+    ["Para preparar la fiesta hemos inflado 20 globos, pero 4 han explotado. ¿Cuántos globos nos quedan?",16,"20 − 4 = 16."]
+  ];
+  function genPro(){
+    return shuf(PRO).slice(0,6).map(function(p){
+      return {q:p[0],a:p[1],s:p[2],h:"Comprende el problema, piensa qué debes calcular primero y en qué orden, haz las operaciones y comprueba la solución."};
+    });
+  }
+  function chart(cats,ser,max,step){
+    var W=300,L=30,B=24,T=10,ph=Math.max(150,max*9),pw=W-L-6,H=T+ph+B,g=pw/cats.length,bw=g/(ser.length+1),v,y,mj,
+        s='<svg class="chart" viewBox="0 0 '+W+' '+(H+22)+'" role="img">';
+    for(v=0;v<=max;v++){
+      y=T+ph-ph*v/max;mj=v%step===0;
+      s+='<line x1="'+L+'" x2="'+(W-6)+'" y1="'+y+'" y2="'+y+'" stroke="'+(mj?"#9a93c4":"#e5defa")+'" stroke-width="'+(mj?1.2:0.7)+'"/>';
+      s+='<text x="'+(L-4)+'" y="'+(y+(mj?4:3))+'" font-size="'+(mj?12:(ph/max>=12?10:8))+'" font-weight="'+(mj?700:400)+'" text-anchor="end" fill="'+(mj?"#2d2a4a":"#6f6a8f")+'">'+v+'</text>';
+    }
+    cats.forEach(function(c,i){
+      ser.forEach(function(se,j){var h=ph*se.v[i]/max;s+='<rect x="'+(L+g*i+bw*(j+0.5))+'" y="'+(T+ph-h)+'" width="'+bw+'" height="'+h+'" rx="2" fill="'+se.c+'"/>'});
+      s+='<text x="'+(L+g*i+g/2)+'" y="'+(T+ph+14)+'" font-size="10" text-anchor="middle" fill="#2d2a4a">'+c+'</text>';
+    });
+    ser.forEach(function(se,j){var x=L+j*80;s+='<rect x="'+x+'" y="'+(H+4)+'" width="10" height="10" rx="2" fill="'+se.c+'"/><text x="'+(x+14)+'" y="'+(H+13)+'" font-size="10" fill="#2d2a4a">'+se.n+'</text>'});
+    return s+'</svg>';
+  }
+  function genGra(){
+    var cs=chart(["Enero","Febrero","Marzo","Abril"],[{n:"Sara",c:"#d64545",v:[4,5,7,9]},{n:"Luis",c:"#22b573",v:[6,4,5,8]}],10,2),
+        cc=chart(["Andando","Bici","Coche","Autobús"],[{n:"Chicas",c:"#f4b73a",v:[14,17,12,12]},{n:"Chicos",c:"#8a4fd6",v:[16,15,14,17]}],20,5),
+        fm=["Andando","Bici","Coche","Autobús"];
+    return shuf([
+      {html:cs,q:"¿Cuántos libros leyó Sara en marzo?",a:7,s:"La barra roja de marzo llega hasta el 7."},
+      {html:cs,q:"¿Cuántos libros leyó Luis en febrero?",a:4,s:"La barra verde de febrero llega hasta el 4."},
+      {html:cs,q:"¿Cuántos libros leyeron entre los dos en abril?",a:17,s:"Sara leyó 9 y Luis 8: 9 + 8 = 17."},
+      {html:cs,q:"¿Cuántos libros más leyó Sara que Luis en marzo?",a:2,s:"Sara leyó 7 y Luis 5: 7 − 5 = 2."},
+      {html:cs,q:"¿Cuántos libros leyó Sara en los cuatro meses?",a:25,s:"4 + 5 + 7 + 9 = 25."},
+      {html:cs,q:"¿Quién leyó más libros en enero?",o:["Sara","Luis"],a:"Luis",s:"En enero Luis leyó 6 libros y Sara 4."},
+      {html:cc,q:"¿Cuál es la forma de llegar al colegio más común entre las chicas?",o:fm,a:"Bici",s:"La barra naranja más alta es la de bici: 17 chicas."},
+      {html:cc,q:"¿Qué forma de llegar al colegio usan menos los chicos?",o:fm,a:"Coche",s:"Los chicos que van en coche son 14, la barra morada más baja."},
+      {html:cc,q:"¿Cuántos estudiantes llegan en bicicleta en total?",a:32,s:"17 chicas + 15 chicos = 32."},
+      {html:cc,q:"¿Cuántos chicos más que chicas llegan en autobús?",a:5,s:"17 chicos − 12 chicas = 5."},
+      {html:cc,q:"¿Cuántas chicas llegan andando o en coche?",a:26,s:"14 + 12 = 26."}
+    ]).slice(0,6).map(function(q){q.h="Fíjate bien en las barras y en los números del lado izquierdo.";return q});
+  }
+  function genMen(){
+    var ab=shuf([500,679,3789,4930,5000,8999]),t=shuf([50,70,80,90]),L=[],x,a,b,n,k;
+    L.push({q:"¿Cuál es el número anterior a "+fmt(ab[0])+"?",a:ab[0]-1,s:"El anterior va justo antes: "+fmt(ab[0])+" − 1 = "+fmt(ab[0]-1)+"."});
+    L.push({q:"¿Cuál es el número posterior a "+fmt(ab[1])+"?",a:ab[1]+1,s:"El posterior va justo después: "+fmt(ab[1])+" + 1 = "+fmt(ab[1]+1)+"."});
+    for(k=0;k<2;k++){x=10*rnd(1,t[k]/10-1);L.push({q:"¿Cuánto le falta a "+x+" para llegar a "+t[k]+"?",a:t[k]-x,s:x+" + "+(t[k]-x)+" = "+t[k]+"."})}
+    a=10*rnd(5,9);b=10*rnd(1,a/10-1);
+    L.push({q:"Calcula mentalmente "+a+" − "+b+".",a:a-b,s:(a/10)+" decenas − "+(b/10)+" decenas = "+((a-b)/10)+" decenas = "+(a-b)+"."});
+    do{n=rnd(31,98)}while(n%10===0);k=10*rnd(1,Math.floor(n/10)-1);
+    L.push({q:"Calcula mentalmente "+n+" − "+k+".",a:n-k,s:"Restamos las decenas y dejamos las unidades: "+n+" − "+k+" = "+(n-k)+"."});
+    return shuf(L).map(function(q){q.h="Piensa en decenas: 10, 20, 30...";return q});
+  }
+  // ---- Zona de cálculo (huecos para las cuentas) ----
+  function ci(){var i=document.createElement("input");i.className="ci";i.inputMode="numeric";i.maxLength=6;i.autocomplete="off";return i}
+  function calcPanel(){
+    var box=el("calc"),rows=el("crows"),showCol=false;
+    box.appendChild(el("clab","✏️ Zona de cálculo: escribe aquí tus cuentas"));
+    box.appendChild(rows);
+    function upd(w){
+      var i=w.querySelectorAll("input"),op=w.querySelector(".cop").textContent,st=w.querySelector(".cst"),pv=w.querySelector(".cpre");
+      var A=i[0].value,B=i[1].value,C=i[2].value,wd,r;
+      st.textContent="";
+      if(A!==""&&B!==""&&C!==""){r=op==="+"?(+A)+(+B):(+A)-(+B);st.textContent=r===(+C)?"✔":"🤔"}
+      pv.classList.toggle("hide",!showCol);
+      if(showCol){wd=Math.max(A.length,B.length,C.length,1)+1;pv.textContent=A.padStart(wd," ")+"\n"+op+B.padStart(wd-1," ")+"\n"+"—".repeat(wd)+"\n"+C.padStart(wd," ")}
+    }
+    function addRow(){
+      if(rows.children.length>=4)return;
+      var w=el("cw"),r=el("crow"),a=ci(),b=ci(),c=ci(),op=document.createElement("button");
+      op.type="button";op.className="cop";op.textContent="+";
+      [a,b,c].forEach(function(x){x.oninput=function(){this.value=this.value.replace(/\D/g,"");upd(w)}});
+      op.onclick=function(){op.textContent=op.textContent==="+"?"−":"+";upd(w)};
+      r.appendChild(a);r.appendChild(op);r.appendChild(b);r.appendChild(el("ceq","="));r.appendChild(c);r.appendChild(el("cst"));
+      w.appendChild(r);w.appendChild(el("cpre hide"));rows.appendChild(w);
+    }
+    addRow();addRow();
+    var bt=el("cbt");
+    [["➕ Otra cuenta",function(){addRow()}],["📐 En columna",function(){showCol=!showCol;[].forEach.call(rows.children,upd)}],["🧹 Borrar",function(){rows.textContent="";addRow();addRow()}]].forEach(function(x){
+      var b=document.createElement("button");b.type="button";b.className="btn ghost sm";b.textContent=x[0];b.onclick=x[1];bt.appendChild(b);
+    });
+    box.appendChild(bt);
+    return box;
+  }
+
+  // ---- Apuntes de la unidad ----
+  var ST=[
+    ["sum","➕","Sumas","#ff7a45",[
+      ["📐","Coloca los sumandos en columna: unidades bajo unidades, decenas bajo decenas, centenas bajo centenas y millares bajo millares."],
+      ["➡️","Suma de derecha a izquierda: primero las unidades, después las decenas, las centenas y los millares."],
+      ["📦","Si una columna llega a 10 o más, AGRUPA: 10 unidades forman 1 decena. Escribe lo que sobra y llévate 1 a la columna siguiente."],
+      ["✍️","Ejemplo 2.735 + 21 + 524. Unidades: 5 + 1 + 4 = 10, escribo 0 y me llevo 1. Decenas: 3 + 2 + 2 + 1 = 8. Centenas: 7 + 5 = 12, escribo 2 y me llevo 1. Millares: 2 + 1 = 3. Resultado: 3.280."],
+      ["🔀","El orden de los sumandos no cambia el resultado: 876 + 2.175 = 2.175 + 876."]],["m","sum","🎮 Practicar sumas en columna"]],
+    ["sub","➖","Restas","#3b82f6",[
+      ["📐","Coloca el minuendo arriba y el sustraendo debajo, cada cifra en su columna. Minuendo − sustraendo = diferencia."],
+      ["➡️","Resta de derecha a izquierda: unidades, decenas, centenas y millares."],
+      ["📦","Si la cifra de arriba es menor que la de abajo, DESAGRUPA: 1 decena se convierte en 10 unidades, y a la columna de la izquierda le quitas 1."],
+      ["✍️","Ejemplo 4.152 − 2.534. Unidades: 2 no puede con 4, desagrupo y 12 − 4 = 8. Decenas: ahora hay 4, y 4 − 3 = 1. Centenas: 1 no puede con 5, desagrupo y 11 − 5 = 6. Millares: ahora hay 3, y 3 − 2 = 1. Resultado: 1.618."],
+      ["✅","Prueba de la resta: al sumar el sustraendo y la diferencia tiene que salir el minuendo. 1.618 + 2.534 = 4.152."]],["m","sub","🎮 Practicar restas en columna"],["q","pru","✅ Practicar la prueba de la resta"]],
+    ["tri","🧮","Tres sumandos","#8a4fd6",[
+      ["➕","Para sumar tres números, suma de dos en dos: primero dos de ellos y al resultado le sumas el tercero."],
+      ["🔟","Agrupa los sumandos que formen decenas o centenas exactas: 17 + 52 + 3 = (17 + 3) + 52 = 20 + 52 = 72."],
+      ["🔀","El orden no importa. Ordena los sumandos para que la suma sea más fácil."],
+      ["📐","En columna: coloca los tres números y suma cada columna, llevándote lo que pase de 9."]],["q","tri","🎮 Practicar tres sumandos"]],
+    ["apr","🎯","Aproximaciones","#d64545",[
+      ["🎯","Aproximar un número es encontrar la decena, la centena o el millar más cercano."],
+      ["1️⃣","1.º Busca entre qué números redondos está. Ejemplo: 218 está entre 200 y 300."],
+      ["2️⃣","2.º Mira la cifra de la derecha y compárala con 5. Si es menor que 5, eliges el menor. Si es 5 o más, eliges el mayor."],
+      ["✍️","218: la cifra de las decenas es 1, menor que 5, y queda 200. 275: la cifra es 7, mayor que 5, y queda 300. 2.329 a los millares: 3 es menor que 5, y queda 2.000."],
+      ["🔟","Para aproximar a las decenas se mira la cifra de las unidades: 76 → 6 es mayor que 5 → 80."]],["q","apr","🎮 Practicar aproximaciones"]],
+    ["est","🔮","Estimaciones","#1f9d55",[
+      ["🔮","Estimar es calcular de forma aproximada, sin hacer la cuenta exacta."],
+      ["➕","Para estimar sumas, aproxima los sumandos y suma las aproximaciones. 37 + 52 → 40 + 50 = 90."],
+      ["➖","Para estimar restas, aproxima cada término y resta. 42 − 28 → 40 − 30 = 10."],
+      ["💯","Con números de 3 cifras aproxima a las centenas: 387 − 169 → 400 − 200 = 200."]],["q","est","🎮 Practicar estimaciones"]],
+    ["pro","🧩","Problemas de dos operaciones","#f4b73a",[
+      ["🧩","Hay problemas que se resuelven haciendo varias operaciones. Es importante pensar antes de calcular."],
+      ["👣","Pasos: 1) Comprende el problema. 2) Piensa qué debes calcular y en qué orden. 3) Haz las operaciones. 4) Comprueba la solución."],
+      ["✍️","Ejemplo: de Oviedo a Almería hay 996 km y ya hemos recorrido 436 + 282. 1.º Lo recorrido: 436 + 282 = 718. 2.º Lo que falta: 996 − 718 = 278. Nos faltan 278 km."]],["q","pro","🎮 Practicar problemas"]],
+    ["pre","📝","Partes de un problema","#d94a78",[
+      ["📖","Un problema matemático tiene dos partes: el enunciado y la pregunta."],
+      ["🔵","Enunciado: explica la situación y da datos, que normalmente son números."],
+      ["🔴","Pregunta: pide información que no sabemos. Suele ir entre signos de interrogación."],
+      ["✍️","Pedro tiene 12 canicas y Luis tiene 15 (enunciado). ¿Cuántas canicas tiene Pedro menos que Luis? (pregunta). Resolución: 15 − 12 = 3. Solución: Pedro tiene 3 canicas menos."]],["q","pre","🎮 Practicar partes del problema"]],
+    ["gra","📊","Gráficos de barras","#0e8b8f",[
+      ["📊","Un gráfico de barras muestra datos con barras. Cuanto más alta es la barra, mayor es el número."],
+      ["👀","Para leer una barra, mira hasta qué número llega en la escala de la izquierda. Cuenta las rayitas de una en una."],
+      ["⚖️","Para comparar, resta la barra más alta menos la más baja. Para el total, suma todas las barras."],
+      ["✏️","Para representar datos: dibuja los ejes, escribe la escala y dibuja una barra por cada dato."]],["q","gra","🎮 Practicar gráficos"]],
+    ["men","🧠","Cálculo mental","#7a55c9",[
+      ["🧠","Complementarios: lo que le falta a un número para llegar a otro. Para llegar a 50 desde 40 faltan 10."],
+      ["🔟","Restar decenas entre sí: 60 − 20 = 40, porque 6 decenas menos 2 decenas son 4 decenas."],
+      ["✍️","Restar decenas a un número: 67 − 20 = 47. Las unidades no cambian: solo restas las decenas."]],["q","men","🎮 Practicar cálculo mental"]],
+    ["num","🔢","Números","#c98a0b",[
+      ["⏮️","El número anterior va justo antes (resta 1) y el posterior justo después (suma 1). El anterior a 5.000 es 4.999."],
+      ["🧱","Descomponer: 6.063 = 6 UM + 0 C + 6 D + 3 U = 6.000 + 60 + 3."],
+      ["🔠","Escribir con letras: 5.289 = cinco mil doscientos ochenta y nueve."],
+      ["📈","Ordenar de mayor a menor: compara primero las cifras de la izquierda. Si son iguales, pasa a las siguientes."]],["q","num","🎮 Practicar números"]]
+  ];
+  function seenMark(t){P.seen=P.seen||{};if(!P.seen[t[0]]){P.seen[t[0]]=1;P.coins+=15;persist();confetti()}}
+  function goPractice(p){backTo=p[0]==="m"?"jugar":"prac";if(p[0]==="m"){lastKind="mission";startMission(p[1],2)}else startQuiz(p[1])}
+  function studyHome(){
+    var b=$("stbody"),g=el("tops");
+    b.textContent="";$("stt").textContent="📖 Estudia";
+    b.appendChild(el("mut","Elige un tema y toca las fichas. Al terminar cada tema ganas 🪙."));
+    ST.forEach(function(t,i){
+      var bt=document.createElement("button");bt.className="lv";
+      bt.innerHTML='<span class="ic">'+t[1]+'</span><b>'+t[2]+'</b><span class="stl">'+((P.seen||{})[t[0]]?"✅":"")+'</span>';
+      bt.onclick=function(){studyCard(i,0)};g.appendChild(bt);
+    });
+    b.appendChild(g);show("s-study");
+  }
+  function studyCard(i,j){
+    var t=ST[i],fs=t[4],n=fs.length,b=$("stbody"),bar=el("sbar"),fi=el(""),c=el("scard"),nav=el("snav"),bt;
+    b.textContent="";$("stt").textContent=t[1]+" "+t[2];
+    fi.style.width=((j+1)/n*100)+"%";bar.appendChild(fi);b.appendChild(bar);
+    c.style.borderTopColor=t[3];c.appendChild(el("sic",fs[j][0]));c.appendChild(el("stx",fs[j][1]));b.appendChild(c);
+    bt=document.createElement("button");bt.className="btn ghost sm";bt.style.width="100%";bt.textContent="◀ Atrás";
+    if(j===0)bt.disabled=true;else bt.onclick=function(){studyCard(i,j-1)};
+    nav.appendChild(bt);
+    if(j<n-1){bt=document.createElement("button");bt.className="btn blue sm";bt.style.width="100%";bt.textContent="Siguiente ▶";bt.onclick=function(){studyCard(i,j+1)};nav.appendChild(bt)}
+    else{bt=document.createElement("button");bt.className="btn ghost sm";bt.style.width="100%";bt.textContent="📚 Temas";bt.onclick=function(){seenMark(t);studyHome()};nav.appendChild(bt)}
+    b.appendChild(nav);
+    if(j===n-1){
+      t.slice(5).forEach(function(p){
+        var x=document.createElement("button");x.className="btn";x.textContent=p[2];x.onclick=function(){seenMark(t);goPractice(p)};b.appendChild(x);
+      });
+    }
+  }
+
+  // ==NEW-START==
+  function genTri(){
+    var L=[[14,35,6],[52,31,9],[85,68,5],[120,80,125],[468,240,60],[350,315,50],[17,52,3],[1456,635,2930],[5128,1636,547],[876,2175,876],[27,13,45],[38,12,24]];
+    return shuf(L).slice(0,6).map(function(t){
+      var a=t[0],b=t[1],c=t[2],s=a+b+c;
+      return {q:"Calcula: "+fmt(a)+" + "+fmt(b)+" + "+fmt(c),a:s,
+        h:"Suma de dos en dos, o busca primero los sumandos que formen decenas o centenas exactas.",
+        s:fmt(a)+" + "+fmt(b)+" = "+fmt(a+b)+" y "+fmt(a+b)+" + "+fmt(c)+" = "+fmt(s)+"."};
+    });
+  }
+  var GR=[[4285,490,5063],[7452,7803,7450],[5860,6324,5941,6702],[8905,8259,8974,8972]];
+  var PN=["unidades","decenas","centenas","unidades de millar"];
+  var WD=[["Tres mil novecientos",3900],["Ocho mil cincuenta y dos",8052],["Seis mil setecientos setenta y tres",6773]];
+  function genNum(){
+    var L=[],g,mx,n,k;
+    shuf(GR).slice(0,2).forEach(function(g,i){
+      mx=i===0;
+      L.push({q:"¿Cuál es el número "+(mx?"mayor":"menor")+" de este grupo?\n"+g.map(fmt).join("   ·   "),
+        a:mx?Math.max.apply(null,g):Math.min.apply(null,g),
+        h:"Compara primero las cifras de la izquierda, que son las que más valen.",
+        s:"Al ordenarlos de mayor a menor: "+g.slice().sort(function(a,b){return b-a}).map(fmt).join(" > ")+"."});
+    });
+    shuf([278,980,6063,8706,2876,9010]).slice(0,2).forEach(function(n){
+      k=rnd(0,String(n).length-1);
+      L.push({q:"En el número "+fmt(n)+", ¿qué cifra ocupa el lugar de las "+PN[k]+"?",a:digits(n)[k],
+        h:"Descompón el número. Las cifras, de derecha a izquierda, son unidades, decenas, centenas...",
+        s:fmt(n)+" tiene "+digits(n)[k]+" "+PN[k]+"."});
+    });
+    shuf(WD).slice(0,2).forEach(function(w){
+      L.push({q:"Escribe con cifras: "+w[0]+".",a:w[1],h:"Escribe cada parte con su cifra: los miles, las centenas, las decenas y las unidades.",s:w[0]+" se escribe "+fmt(w[1])+"."});
+    });
+    return shuf(L);
+  }
+  var PP=[
+    ["Tenía 137 fotos en el ordenador. Hoy he puesto 68 fotos nuevas de mi viaje a la playa.","¿Cuántas fotos tengo ahora en el ordenador?","137 + 68 = 205"],
+    ["He cargado en un camión un sofá que pesa 137 kg y un armario de 68 kg. El camión puede llevar 295 kg más.","¿Cuántos kilos puede cargar en total el camión?","137 + 68 = 205 y 295 + 205 = 500"],
+    ["En un colegio se quedan a comer 137 estudiantes de Primaria y 68 de Infantil. El comedor tiene 295 plazas.","¿Cuántas plazas quedan sin ocupar en el comedor?","137 + 68 = 205 y 295 − 205 = 90"],
+    ["Pedro tiene 12 canicas y Luis tiene 15.","¿Cuántas canicas tiene Pedro menos que Luis?","15 − 12 = 3"]
+  ];
+  function genPre(){
+    var out=[];
+    shuf(PP).slice(0,3).forEach(function(p){
+      var ot=shuf(PP.filter(function(x){return x!==p})).slice(0,2);
+      out.push({q:"Lee el problema:\n“"+p[0]+" "+p[1]+"”\n¿Cuál es la pregunta?",o:[p[1]].concat(ot.map(function(x){return x[1]})),a:p[1],
+        h:"La pregunta pide información que no sabemos y suele ir entre signos de interrogación.",s:"La pregunta es: "+p[1]});
+      out.push({q:"Problema:\n“"+p[0]+" "+p[1]+"”\n¿Qué operaciones lo resuelven?",o:[p[2]].concat(ot.map(function(x){return x[2]})),a:p[2],
+        h:"Piensa qué debes calcular primero y en qué orden.",s:"La resolución es: "+p[2]});
+    });
+    return shuf(out);
+  }
+  function genPru(){
+    return shuf(BOOK.sub).slice(0,5).map(function(p){
+      var a=p[0],b=p[1],d=a-b;
+      return {q:"La resta "+fmt(a)+" − "+fmt(b)+" da "+fmt(d)+". Para comprobarla, suma el sustraendo y la diferencia: "+fmt(d)+" + "+fmt(b)+". ¿Cuánto da?",a:a,
+        h:"Si la resta está bien hecha, el resultado de la prueba es el minuendo.",
+        s:fmt(d)+" + "+fmt(b)+" = "+fmt(a)+", que es el minuendo."};
+    });
+  }
+  // ==NEW-END==
+  var TOP={apr:["Aproximaciones","📏",genApr],est:["Estimaciones","🧮",genEst],pro:["Problemas","🧩",genPro],gra:["Gráficos de barras","📊",genGra],men:["Cálculo mental","🧠",genMen],tri:["Tres sumandos","➕",genTri],num:["Números","🔢",genNum],pre:["Partes de un problema","📝",genPre],pru:["Prueba de la resta","✅",genPru]};
+
+  // ---- Repaso: preguntas ----
+  function qlock(){
+    document.querySelectorAll("#qbody .qin,#qbody .opt").forEach(function(e){e.disabled=true});
+    $("qcheck").classList.add("hide");$("qhint").classList.add("hide");
+    $("qnext").textContent=Z.i>=Z.qs.length-1?"Ver resultado 🏁":"Siguiente ▶";$("qnext").classList.remove("hide");
+  }
+  function nextQ(){
+    Z.i++;
+    if(Z.i>=Z.qs.length){qresult();return}
+    var q=Z.qs[Z.i],b=$("qbody");
+    Z.tries=0;Z.done=false;
+    $("qi").textContent="Pregunta "+(Z.i+1)+" de "+Z.qs.length;$("qc").textContent="🪙 "+Z.coins;
+    b.textContent="";
+    if(q.html){var hd=el("");hd.innerHTML=q.html;b.appendChild(hd)}
+    b.appendChild(el("qtext",q.q));
+    if(q.o){
+      var bx=el("opts");
+      shuf(q.o).forEach(function(o){var bt=document.createElement("button");bt.className="opt";bt.textContent=o;bt.onclick=function(){qcheck(o,bt)};bx.appendChild(bt)});
+      b.appendChild(bx);$("qcheck").classList.add("hide");
+    }else{
+      var inp=document.createElement("input");inp.className="qin";inp.id="qin";inp.inputMode="numeric";inp.placeholder="Tu respuesta";inp.autocomplete="off";
+      inp.onkeydown=function(e){if(e.key==="Enter")qcheck()};
+      b.appendChild(inp);$("qcheck").classList.remove("hide");
+    }
+    b.appendChild(calcPanel());
+    $("qnext").classList.add("hide");$("qhint").classList.remove("hide");
+    setMsg(q.o?"Elige la respuesta que creas.":"Escribe tu respuesta y pulsa Comprobar.","info","qmsg");
+    if(!q.o)$("qin").focus();
+  }
+  function qcheck(v,bt){
+    if(Z.done)return;
+    var q=Z.qs[Z.i],ok;
+    if(v===undefined){v=$("qin").value;if(!v.trim()){setMsg("✏️ Escribe tu respuesta.","doubt","qmsg");return}}
+    ok=q.o?v===q.a:parseInt(String(v).replace(/[.\s]/g,""),10)===q.a;
+    if(ok){
+      Z.done=true;Z.ok++;Z.coins+=10;$("qc").textContent="🪙 "+Z.coins;
+      setMsg("🎉 ¡Genial! "+(q.s||"")+" +10 🪙","ok","qmsg");confetti();qlock();
+    }else{
+      Z.tries++;
+      if(bt)bt.disabled=true;
+      if(Z.tries>=3){Z.done=true;setMsg("Mira cómo se hace: "+q.s+" La respuesta es "+(q.o?q.a:fmt(q.a))+".","info","qmsg");qlock()}
+      else if(Z.tries===1)setMsg("🤔 Mira otra vez. ¿Seguro de tu respuesta?","doubt","qmsg");
+      else setMsg("🤔 Piénsalo con calma. "+(q.h||""),"doubt","qmsg");
+    }
+  }
+  function startQuiz(k){
+    Z={k:k,qs:TOP[k][2](),i:-1,ok:0,help:false,coins:0,tries:0,done:false};
+    lastKind="quiz";
+    $("qt").textContent=TOP[k][1]+" "+TOP[k][0];
+    show("s-quiz");nextQ();
+  }
+  function qresult(){
+    var n=Z.qs.length,st=Z.ok>=Math.ceil(n/2)?1:0,k="q:"+Z.k;
+    if(Z.ok===n)st=2;
+    if(Z.ok===n&&!Z.help)st=3;
+    if(st>(P.stars[k]||0))P.stars[k]=st;
+    P.coins+=Z.coins;persist();
+    $("rtitle").textContent=st?"¡Muy bien!":"¡Casi lo consigues!";
+    $("rstars").textContent=stars(st);
+    $("rtext").textContent="Has resuelto "+Z.ok+" de "+n+" preguntas y ganado "+Z.coins+" 🪙."+(st===3?" ¡Las tres estrellas!":st?" Resuelve todas sin usar la ayuda para conseguir las 3 estrellas.":" Necesitas resolver "+Math.ceil(n/2)+" para ganar una estrella. ¡Tú puedes!");
+    $("r-next").classList.add("hide");
+    show("s-res");
+    if(st)confetti();
+  }
+  $("qcheck").onclick=function(){qcheck()};
+  $("qnext").onclick=nextQ;
+  $("qhint").onclick=function(){if(Z.done)return;Z.help=true;setMsg("💡 "+(Z.qs[Z.i].h||"Lee con calma."),"info","qmsg")};
+  $("qexit").onclick=goBack;
+  $("bk-sum").onclick=function(){startMission("sum",4,true)};
+  $("bk-sub").onclick=function(){startMission("sub",4,true)};
+
+  $("m-calm").onclick=function(){mode="calm";jugar()};
+  $("m-time").onclick=function(){mode="time";jugar()};
+  $("check").onclick=check;
+  $("hint").onclick=hint;
+  $("reset").onclick=function(){if(S.over)return;var f=S.tries;S=init(S.c);S.tries=f;setMsg("Empezamos de nuevo con la misma operación.","info");render(true)};
+  $("next").onclick=nextOp;
+  $("exit").onclick=function(){stopTimer();goBack()};
+  $("r-home").onclick=goBack;
+  $("r-again").onclick=function(){if(lastKind==="quiz")startQuiz(Z.k);else startMission(G.t,G.d,G.book)};
+  $("r-next").onclick=function(){startMission(G.t,G.d+1)};
+  $("wipe").onclick=function(){
+    if(!wipeSure){wipeSure=true;$("wipe").textContent="¿Seguro? Toca otra vez";return}
+    wipeSure=false;P={stars:{},coins:0};persist();$("wipe").textContent="Borrar mi progreso";home();
+  };
+
+  $("go-study").onclick=studyHome;
+  $("go-prac").onclick=practicar;
+  $("go-jugar").onclick=jugar;
+  $("jb").onclick=home;
+  $("pb").onclick=home;
+  $("stb").onclick=home;
+  load();home();
+})();
+</script>
+<a class="homelink" href="index.html">🏠 Menú</a>
+</body>
+</html>
