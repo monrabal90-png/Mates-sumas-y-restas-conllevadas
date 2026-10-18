@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Els animals – Joc d’estudi</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef9f8;--card:#fff;--ink:#16343a;--teal:#0e8b8f;--blue:#1e88d6;--yel:#f4b73a;--pink:#d94a78;--ok:#2e9e5b;--bad:#d9534f;--line:#cfe6e6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2226;--card:#173238;--ink:#e8f5f5;--line:#2a4a50}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.35}
+main{max-width:640px;margin:0 auto;padding:14px}
+h1{font-size:2rem;margin:6px 0 2px;color:var(--teal);font-weight:800}
+h2{margin:.2rem 0 .6rem;color:var(--blue)}
+.sub{margin:0 0 12px;opacity:.8}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.menu button,.btn{font:inherit;font-weight:700;border:0;border-radius:16px;padding:14px 10px;color:#fff;cursor:pointer;min-height:56px}
+.menu button:nth-child(1){background:var(--teal)}.menu button:nth-child(2){background:var(--blue)}
+.menu button:nth-child(3){background:var(--pink)}.menu button:nth-child(4){background:#c98a0b}
+.menu .big{font-size:2rem;display:block}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.back{font:inherit;background:none;border:2px solid var(--line);color:var(--ink);border-radius:12px;padding:6px 12px;cursor:pointer}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.q{font-size:1.2rem;font-weight:700;margin:8px 0 12px}
+.opt{display:block;width:100%;text-align:left;font:inherit;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px;margin:8px 0;cursor:pointer}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible,.menu button:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn{background:var(--teal);width:100%;margin-top:8px}
+.item{text-align:center;font-size:4.5rem;line-height:1.1;margin:6px 0 0}
+.name{text-align:center;font-size:1.4rem;font-weight:700;margin-bottom:8px}
+.grp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grp .opt{text-align:center;margin:0;font-weight:700}
+.end{text-align:center}.end .item{font-size:3.5rem}
+.col .opt{margin:0 0 8px}.menu button:nth-child(5){background:#7a55c9}.menu button:nth-child(6){background:#2e9e5b}
+.ins{width:100%;height:auto;display:block}.p *{fill:#bfe3dc;stroke:#16343a;stroke-width:2.5}.p path{fill:none}.p.hl *{fill:#f4b73a;stroke:#d94a78;stroke-width:4}.p.hl path{fill:none}
+.fx{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.fx{animation:none}}
+.tp{border-left:6px solid var(--yel);padding-left:10px;margin:10px 0}
+.tp summary{font-weight:800;color:var(--teal);cursor:pointer;font-size:1.15rem}
+.tp ul{margin:6px 0;padding-left:20px}
+body{background:radial-gradient(circle at 15% 0,#bff0ec,transparent 50%),radial-gradient(circle at 95% 15%,#ffe9a8,transparent 45%),var(--bg);background-attachment:fixed}
+.card{border-radius:24px;box-shadow:0 5px 0 var(--line);border-width:0}
+.opt{border-radius:18px;border-bottom-width:5px;font-weight:700;transition:transform .08s}
+.opt:hover:not(:disabled){border-color:var(--blue)}.opt:active:not(:disabled){transform:translateY(3px);border-bottom-width:2px}
+.btn{border-radius:18px;box-shadow:0 5px 0 rgba(0,0,0,.25);font-size:1.1rem}.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.menu button{border-radius:24px;box-shadow:0 6px 0 rgba(0,0,0,.25);padding:18px 8px;font-size:1.15rem;transition:transform .1s}.menu button:active{transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.menu .wide{grid-column:1/-1;background:#f08a24!important}
+.hero{text-align:center}.hero h1{font-size:2.6rem}.mascot{font-size:5rem;animation:bob 2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-10px) rotate(6deg)}}
+.item{animation:pop .4s}@keyframes pop{from{transform:scale(.4)}60%{transform:scale(1.2)}to{transform:scale(1)}}
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:8px;max-width:640px;margin:0 auto;padding:8px 14px;background:var(--bg);font-weight:800}
+.hud .xp{flex:1;height:12px;background:var(--line);border-radius:8px;overflow:hidden}.hud .xp i{display:block;height:100%;background:linear-gradient(90deg,#2e9e5b,#f4b73a);transition:width .4s}
+.lv{background:var(--teal);color:#fff;border-radius:12px;padding:2px 10px}.hud button{border:0;background:none;font-size:1.3rem;cursor:pointer}.cmb.hot{display:inline-block;color:#e8590c;animation:pop .5s infinite alternate}
+.hp{font-size:1.3rem;letter-spacing:2px}.tbar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:6px}.tbar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#f4b73a,#d94a78)}
+.bd{display:flex;gap:8px;margin:14px 0}.bd span{flex:1;text-align:center;background:var(--card);border-radius:16px;padding:6px 2px;font-size:.75rem;box-shadow:0 3px 0 var(--line)}.bd span.off{filter:grayscale(1);opacity:.45}.bd em{display:block;font-style:normal;font-size:1.6rem}
+.stg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stk{border-radius:18px;padding:10px 4px;text-align:center;background:#e4eded;color:#789;box-shadow:0 4px 0 rgba(0,0,0,.12)}.stk.on,.newst{background:var(--c);color:#16343a}.stk.on .se{animation:wig 2s infinite}.se{font-size:2.8rem}.stk b,.newst b{display:block;font-size:.85rem}@keyframes wig{50%{transform:rotate(8deg) scale(1.1)}}
+.newst{display:inline-block;padding:10px 18px;border-radius:20px;margin:6px;animation:pop .6s}.newst .se{font-size:4rem;animation:wig 1s infinite}
+#fxl{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}#fxl i{position:absolute;top:-14px;width:10px;height:14px;border-radius:2px;animation:fall 1.8s ease-in forwards}@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(720deg)}}
+#fxl b{position:absolute;width:8px;height:8px;border-radius:50%;animation:pf .6s ease-out forwards}@keyframes pf{to{transform:translate(var(--dx),var(--dy)) scale(0);opacity:0}}
+#fxl u{position:absolute;height:6px;border-radius:3px;background:linear-gradient(90deg,#f4b73a,#d94a78);transform-origin:0 50%;animation:ln .9s forwards}@keyframes ln{0%{clip-path:inset(0 100% 0 0)}30%{clip-path:inset(0)}80%{opacity:1}100%{opacity:0}}
+.toast{position:absolute;left:50%;top:28%;transform:translateX(-50%);font-weight:800;font-size:2rem;padding:8px 22px;border-radius:30px;background:#fff;color:var(--ok);box-shadow:0 8px 0 rgba(0,0,0,.2);animation:tp 1.1s forwards;white-space:nowrap}.toast.no{color:var(--bad)}
+@keyframes tp{0%{transform:translateX(-50%) scale(.3);opacity:0}20%{transform:translateX(-50%) scale(1.15);opacity:1}80%{opacity:1}100%{transform:translateX(-50%) translateY(-40px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}#fxl{display:none}}
+</style>
+<style>
+.homelink{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;background:#fff;color:#2d2a4a;font:700 15px "Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;text-decoration:none;border-radius:99px;padding:9px 16px;box-shadow:0 4px 0 rgba(0,0,0,.2);border:2px solid #e5defa}
+.homelink:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+main{padding-bottom:76px!important}
+</style>
+</head>
+<body>
+<div id="hud" class="hud"></div><main id="app"></main><div id="fxl"></div>
+<script>
+const $=document.getElementById("app");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+// Preguntes: [pregunta, resposta correcta, error 1, error 2]
+const Q=[
+["Quines són les funcions vitals dels animals?","Nutrició, relació i reproducció","Respiració, son i joc","Menjar, córrer i dormir"],
+["Amb la funció de nutrició, els animals obtenen…","l’energia i les substàncies que necessiten per viure","informació del que ocorre al seu voltant","cries semblants a ells"],
+["Els herbívors s’alimenten…","de parts de plantes","d’altres animals","de plantes i d’altres animals"],
+["Els carnívors s’alimenten…","d’altres animals","de parts de plantes","de plantes i d’altres animals"],
+["Els omnívors s’alimenten…","de plantes i d’altres animals","només de plantes","només d’altres animals"],
+["On es troba l’oxigen que necessiten els animals?","A l’aire i a l’aigua","Només a la terra","Només al mar"],
+["Com s’aconsegueix l’oxigen?","Mitjançant la respiració","Mitjançant la reproducció","Mitjançant la metamorfosi"],
+["Alguns animals prenen l’oxigen de l’aire a través dels…","pulmons","brànquies","ulls"],
+["Les brànquies són unes làmines que estan en contacte amb…","l’aigua","l’aire","el menjar"],
+["Els dofins viuen a l’aigua. Com respiren?","Amb pulmons, a la superfície","Amb brànquies","Amb la pell"],
+["Amb la funció de relació, els animals reben informació a través dels…","òrgans dels sentits","pulmons","ossos"],
+["Quina part del cos rep la informació, la interpreta i hi dona una resposta?","El cervell","El crani","La cua"],
+["La línia lateral és un òrgan dels sentits dels…","peixos","ocells","insectes"],
+["Amb la funció de reproducció, els animals tenen…","cries semblants a ells","més energia","més oxigen"],
+["En la reproducció asexual intervé…","un sol progenitor","una femella i un mascle","tres progenitors"],
+["En la reproducció sexual intervenen…","una femella i un mascle","un sol progenitor","només la femella"],
+["Els animals ovípars…","ponen ous","tenen les cries al ventre","no es reprodueixen"],
+["Els animals vivípars…","tenen les cries al ventre de la mare fins al naixement","ponen ous","es reprodueixen a partir d’un braç"],
+["Els vertebrats tenen un esquelet intern format per ossos amb una…","columna vertebral","closca","armadura"],
+["Quines són les tres parts del cos dels vertebrats?","Cap, tronc i cua","Cap, tòrax i abdomen","Cap, potes i ales"],
+["On es troba el crani?","Dins del cap","Dins de la cua","Dins del tronc"],
+["Quins són els grups de vertebrats?","Peixos, amfibis, rèptils, ocells i mamífers","Esponges, meduses i cucs","Bivalves, gasteròpodes i cefalòpodes"],
+["Què tenen en comú tots els invertebrats?","No tenen columna vertebral i són ovípars","Tenen sis potes","Tenen conquilles"],
+["Les esponges…","tenen forma irregular i estan fixes sobre el fons del mar","tenen forma de paraigua","són allargades i no tenen potes"],
+["Quins animals tenen forma de paraigua i tentacles que poden causar picades?","Les meduses","Les esponges","Els cucs"],
+["Els cucs són…","allargats i no tenen potes","fixos al fons del mar","animals amb conquilla"],
+["Els equinoderms tenen un esquelet de plaques dures davall de la pell. Són…","les estrelles i els eriçons de mar","els cucs de terra","els calamars"],
+["Els mol·luscs tenen el cos…","tou, protegit per una o dues conquilles","dur, amb sis potes","allargat, sense potes"],
+["Les cloïsses estan protegides per…","dues conquilles","una closca en espiral","cap conquilla"],
+["Els bivalves tenen el cos protegit per…","dues conquilles","una closca en espiral","una closca a l’interior"],
+["Els gasteròpodes, com els caragols, es protegeixen dins d’una closca…","que s’enrotlla en espiral","amb dues parts","a l’interior del cos"],
+["Quin gasteròpode no té closca?","La bavosa","El caragol marí","La cloïssa"],
+["Els cefalòpodes tenen tentacles amb…","ventoses","pinces","ales"],
+["Quin cefalòpode no té closca a l’interior?","El polp","El calamar","La sépia"],
+["Els mol·luscs són ovípars. Ponen els ous…","a l’aigua o en llocs humits","a l’aire","a la neu"],
+["Quin és el grup d’animals més nombrós del regne animal?","Els artròpodes","Els mol·luscs","Els vertebrats"],
+["Els artròpodes estan coberts per diverses peces unides per articulacions com…","una armadura","una pell nua","un tou"],
+["El cos dels insectes està dividit en…","cap, tòrax i abdomen","cap, tronc i cua","cap i cua"],
+["Quantes potes i antenes tenen els insectes?","Sis potes i dues antenes","Quatre potes i sis antenes","Vuit potes i cap antena"],
+["La majoria dels insectes tenen…","dues o quatre ales","sis ales","cap ala"],
+["Els insectes són ovípars. Els que acaben d’eixir de l’ou reben el nom de…","larva","adult","nimfa"],
+["La transformació de la larva en adult es diu…","metamorfosi","respiració","reproducció"],
+["Les larves de les papallones són…","les erugues","els escarabats","les mosques"],
+["Quins insectes tenen quatre ales paregudes que empren per a volar?","Les papallones","Les mosques i els mosquits","Els escarabats"],
+["Quins insectes tenen dues ales normals i altres dues molt xicotetes?","Les mosques i els mosquits","Les papallones","Els escarabats"],
+["Quins insectes tenen dues ales gruixudes que protegeixen altres dues?","Els escarabats","Les papallones","Les mosques"],
+["Quantes espècies d’insectes poden viure en aigua salada?","Només tres","Més de mil","Cap"],
+["Per què són essencials els insectes per al planeta?","Són aliment d’ocells i intervenen en la reproducció de plantes","Perquè viuen al mar","Perquè no tenen potes"],
+["Qui utilitza el quadern de camp per anotar les observacions i fer dibuixos?","Els zoòlegs i les persones que estudien els animals","Només els mestres","Només els caçadors"]
+];
+
+// Classifica: grups i animals [emoji, nom, grup]
+const C={
+vert:{t:"Grups de vertebrats",g:["Peixos","Amfibis","Rèptils","Ocells","Mamífers"],i:[["🐠","Peix pallasso",0],["🦈","Tauró",0],["🐸","Granota",1],["🦎","Iguana",2],["🐍","Serp",2],["🦅","Àguila reial",3],["🐔","Gallina",3],["🐿️","Esquirol",4],["🐱","Gat",4],["🐇","Conill",4],["🐬","Dofí",4]]},
+inv:{t:"Grups d’invertebrats",g:["Esponges","Meduses","Cucs","Mol·luscs","Artròpodes","Equinoderms"],i:[["🧽","Esponja",0],["🪼","Medusa",1],["🪱","Cuc de terra",2],["🐌","Caragol",3],["🐙","Polp",3],["🦪","Ostra",3],["🦀","Cranc",4],["🕷️","Aranya",4],["🐞","Marieta",4],["🦋","Papallona",4],["⭐","Estrella de mar",5]]},
+ali:{t:"Segons l’alimentació",g:["Herbívor","Carnívor","Omnívor"],i:[["🦓","Zebra",0],["🐇","Conill",0],["🐄","Vaca",0],["🕷️","Aranya",1],["🐍","Serp",1],["🦅","Àguila reial",1],["🦊","Guineu",2],["🐔","Gallina",2]]},
+mol:{t:"Grups de mol·luscs",g:["Bivalves","Gasteròpodes","Cefalòpodes"],i:[["🦪","Clòtxina",0],["🦪","Cloïssa",0],["🦪","Ostra",0],["🐌","Caragol terrestre",1],["🐚","Caragol marí",1],["🐌","Bavosa",1],["🐙","Polp",2],["🦑","Calamar",2],["🦑","Sépia",2]]},
+rep:{t:"Ovípars o vivípars?",g:["Ovípar","Vivípar"],i:[["🐔","Gallina",0],["🐢","Tortuga",0],["🐸","Granota",0],["🐌","Caragol",0],["🦋","Papallona",0],["🐘","Elefant",1],["🐱","Gat",1],["🐬","Dofí",1],["🐒","Mico",1]]}
+};
+
+// Resum d’estudi
+const S=[
+["🍽️ Les funcions vitals","Nutrició: els animals obtenen l’energia i les substàncies que necessiten per viure. Segons l’alimentació són herbívors (parts de plantes), carnívors (altres animals) o omnívors (plantes i altres animals).|Respiració: l’oxigen es troba a l’aire i a l’aigua. Uns animals el prenen de l’aire amb els pulmons; altres, de l’aigua amb les brànquies.|Relació: els animals reben informació amb els òrgans dels sentits; el cervell la interpreta i dona una resposta.|Reproducció: asexual (un sol progenitor) o sexual (femella i mascle). Ovípars: ponen ous. Vivípars: les cries creixen al ventre de la mare."],
+["🦴 Els vertebrats","Tenen un esquelet intern format per ossos amb una columna vertebral.|El cos té tres parts: cap (boca, òrgans dels sentits i crani), tronc (columna vertebral i extremitats: potes, aletes o ales) i cua.|Grups: peixos, amfibis, rèptils, ocells i mamífers."],
+["🪼 Els invertebrats","No tenen columna vertebral i són ovípars.|Esponges: forma irregular, fixes sobre el fons del mar.|Meduses: forma de paraigua; els tentacles poden causar picades.|Cucs: allargats i sense potes.|Mol·luscs: cos tou, la majoria protegit per una o dues conquilles.|Artròpodes: coberta dura i potes amb articulacions.|Equinoderms: esquelet de plaques dures davall de la pell (estrelles i eriçons de mar)."],
+["🐌 Els mol·luscs","Bivalves: dues conquilles. Tots són aquàtics. Clòtxines, cloïsses, ostres.|Gasteròpodes: terrestres o aquàtics. Closca en espiral; les bavoses no en tenen.|Cefalòpodes: tots marins, amb tentacles amb ventoses. Calamars i sépies tenen una closca a l’interior; els polps no."],
+["🦋 Els artròpodes i els insectes","Els artròpodes són el grup més nombrós del regne animal: papallones, formigues, aranyes, gambes, carrancs, escorpins, centcames…|Estan coberts per peces unides per articulacions com una armadura.|Insectes: cos dividit en cap, tòrax i abdomen; sis potes i dues antenes; la majoria tenen dues o quatre ales.|Metamorfosi: de l’ou surt una larva (l’eruga) que després de diversos canvis es transforma en adult.|Papallones: quatre ales paregudes. Mosques i mosquits: dues ales normals i dues de molt xicotetes. Escarabats: dues ales gruixudes que protegeixen altres dues.|Només tres espècies d’insectes poden viure en aigua salada."]
+];
+
+const star=n=>"⭐".repeat(n)+"☆".repeat(3-n);
+const head=(t,back=true)=>`<div class="top"><h2>${t}</h2>${back?'<button class="back" onclick="home()">Inici</button>':''}</div>`;
+
+function home(){
+$.innerHTML=`<h1>🦋 Els animals</h1><p class="sub">Unitat 2 · Coneixement del Medi. Tria un joc!</p>
+<div class="menu">
+<button onclick="study()"><span class="big">📖</span>Estudia</button>
+<button onclick="quiz()"><span class="big">❓</span>Preguntes</button>
+<button onclick="cls('vert')"><span class="big">🧩</span>Classifica</button>
+<button onclick="mix()"><span class="big">🏆</span>Repte final</button>
+<button onclick="lk('gr')"><span class="big">🔗</span>Enllaça</button>
+<button onclick="ins()"><span class="big">🐝</span>Parts de l’insecte</button></div>
+<div class="card"><b>Enllaça</b>: uneix les parelles<div class="grp" style="margin:8px 0 14px">${Object.keys(L).map(k=>`<button class="opt" onclick="lk('${k}')">${L[k].t}</button>`).join("")}</div><b>Classifica</b>: tria el tema<div class="grp" style="margin-top:8px">${Object.keys(C).map(k=>`<button class="opt" onclick="cls('${k}')">${C[k].t}</button>`).join("")}</div></div>`;
+}
+
+function studyText(){
+$.innerHTML=head("📖 Estudia")+S.map(([t,b])=>`<details class="tp card"><summary>${t}</summary><ul>${b.split("|").map(x=>`<li>${x}</li>`).join("")}</ul></details>`).join("")+`<button class="btn" onclick="quiz()">Ja ho sé! A jugar</button>`;
+}
+
+let st;
+function quiz(n=10,pool=Q){
+st={qs:sh(pool).slice(0,n),i:0,ok:0};
+qn();
+}
+function mix(){quiz(15)}
+function qn(){
+const q=st.qs[st.i];
+if(!q){return fin(st.ok,st.qs.length,"quiz()")}
+const o=sh([[q[1],1],[q[2],0],[q[3],0]]);
+$.innerHTML=head(`Pregunta ${st.i+1}/${st.qs.length}`)+`<div class="bar"><i style="width:${st.i/st.qs.length*100}%"></i></div>
+<div class="card"><div class="q">${q[0]}</div>${o.map((x,k)=>`<button class="opt" data-c="${x[1]}" onclick="pick(this)">${x[0]}</button>`).join("")}<div id="fb"></div></div>`;
+}
+function pick(b){
+const all=[...document.querySelectorAll(".opt")];
+if(all.some(x=>x.disabled))return;
+all.forEach(x=>{x.disabled=true;if(x.dataset.c==="1")x.classList.add("ok")});
+const good=b.dataset.c==="1";
+if(good)st.ok++;else b.classList.add("bad","fx");
+document.getElementById("fb").innerHTML=`<p><b>${good?"Molt bé! 🎉":"Quasi! Mira la resposta verda."}</b></p><button class="btn" onclick="st.i++;qn()">Continua</button>`;
+}
+function fin(ok,n,again){
+const r=ok/n,s=r>=.9?3:r>=.6?2:r>=.3?1:0;
+$.innerHTML=head("Resultat")+`<div class="card end"><div class="item">${s==3?"🏆":s?"👏":"💪"}</div><div class="q">${ok} de ${n} encertades</div><div class="item" style="font-size:2.4rem">${star(s)}</div><p>${s==3?"Excel·lent! Ja ets un expert dels animals.":s>=1?"Molt bé! Repassa l’apartat Estudia i torna-ho a provar.":"No passa res. Llig el resum i torna-ho a provar!"}</p>
+<button class="btn" onclick="${again}">Torna a jugar</button><button class="btn" style="background:var(--blue)" onclick="study()">Repassa el resum</button></div>`;
+}
+
+function cls(k){
+const c=C[k];st={k,items:sh(c.i),i:0,ok:0,err:0};cn();
+}
+function cn(){
+const c=C[st.k],it=st.items[st.i];
+if(!it){return fin(Math.max(0,st.items.length-st.err),st.items.length,`cls('${st.k}')`)}
+$.innerHTML=head(c.t)+`<div class="bar"><i style="width:${st.i/st.items.length*100}%"></i></div>
+<div class="card"><div class="item">${it[0]}</div><div class="name">${it[1]}</div><div class="grp">${c.g.map((g,j)=>`<button class="opt" onclick="cp(this,${j})">${g}</button>`).join("")}</div><div id="fb"></div></div>`;
+}
+function cp(b,j){
+const it=st.items[st.i];
+if(j===it[2]){hit();b.classList.add("ok");document.querySelectorAll(".opt").forEach(x=>x.disabled=true);
+document.getElementById("fb").innerHTML=`<p><b>Correcte! 🎉</b></p><button class="btn" onclick="st.i++;cn()">Continua</button>`}
+else{if(!b.classList.contains("bad")){st.err++;miss()}b.classList.add("bad","fx");b.disabled=true}
+}
+// Enllaça
+const L={
+gr:{t:"Animal i grup",p:[["🐸 Granota","Amfibis"],["🦎 Iguana","Rèptils"],["🦅 Àguila reial","Ocells"],["🐿️ Esquirol","Mamífers"],["🐠 Peix pallasso","Peixos"]]},
+inv:{t:"Invertebrats",p:[["Esponges","Forma irregular, fixes sobre el fons del mar"],["Meduses","Forma de paraigua i tentacles que piquen"],["Cucs","Allargats i sense potes"],["Mol·luscs","Cos tou protegit per conquilles"],["Artròpodes","Coberta dura i potes amb articulacions"],["Equinoderms","Esquelet de plaques dures davall de la pell"]]},
+mol:{t:"Mol·luscs",p:[["Bivalves","Dues conquilles"],["Gasteròpodes","Closca que s’enrotlla en espiral"],["Cefalòpodes","Tentacles amb ventoses"],["Bavosa","No té closca"]]},
+ins:{t:"Insectes",p:[["🦋 Papallones","Quatre ales paregudes"],["🪰 Mosques i mosquits","Dues ales normals i dues de molt xicotetes"],["🪲 Escarabats","Dues ales gruixudes que protegeixen altres dues"],["Larva","L’animal que acaba d’eixir de l’ou"],["Metamorfosi","Transformació de la larva en adult"]]},
+fun:{t:"Funcions vitals",p:[["Pulmons","Prenen l’oxigen de l’aire"],["Brànquies","Prenen l’oxigen de l’aigua"],["Ovípars","Les femelles ponen ous"],["Vivípars","Les cries creixen al ventre de la mare"],["Herbívors","S’alimenten de parts de plantes"],["Carnívors","S’alimenten d’altres animals"]]}
+};
+function lk(k){
+const p=L[k].p;st={k,sel:null,done:0,err:0,n:p.length};
+const r=sh(p.map(x=>x[1]));
+$.innerHTML=head(L[k].t)+`<div class="card"><p>Toca un element de l’esquerra i després el seu company de la dreta.</p><div class="grp"><div class="col">${sh(p).map(x=>`<button class="opt" data-s="L" data-v="${x[1]}" onclick="lp(this)">${x[0]}</button>`).join("")}</div><div class="col">${r.map(v=>`<button class="opt" data-s="R" data-v="${v}" onclick="lp(this)">${v}</button>`).join("")}</div></div></div>`;
+}
+function lp(b){
+if(b.disabled)return;
+if(b.dataset.s==="L"){document.querySelectorAll('[data-s="L"]').forEach(x=>x.style.outline="");b.style.outline="3px solid var(--yel)";st.sel=b;return}
+if(!st.sel)return;
+if(st.sel.dataset.v===b.dataset.v){hit();line(st.sel,b);[st.sel,b].forEach(x=>{x.classList.add("ok");x.disabled=true;x.style.outline=""});st.sel=null;if(++st.done===st.n)setTimeout(()=>fin(Math.max(0,st.n-st.err),st.n,`lk('${st.k}')`),500)}
+else{st.err++;miss();b.classList.add("bad","fx");setTimeout(()=>b.classList.remove("bad","fx"),500)}
+}
+// Parts de l’insecte (dibuix)
+const P=["Cap","Tòrax","Abdomen","Antenes","Potes","Ales"];
+function ins(){st={i:0,err:0,ps:sh([0,1,2,3,4,5])};inn()}
+function inn(){
+if(st.i>=6)return fin(Math.max(0,6-st.err),6,"ins()");
+const p=st.ps[st.i],g=(i,x)=>`<g class="p${i===p?" hl":""}">${x}</g>`;
+$.innerHTML=head(`Etiqueta l’insecte ${st.i+1}/6`)+`<div class="bar"><i style="width:${st.i/6*100}%"></i></div><div class="card"><svg class="ins" viewBox="0 0 300 190" role="img" aria-label="Dibuix d’un insecte">${g(5,'<ellipse cx="125" cy="62" rx="38" ry="16" transform="rotate(-15 125 62)"/><ellipse cx="165" cy="58" rx="38" ry="14" transform="rotate(10 165 58)"/>')}${g(4,'<path d="M112 125L85 172M130 130L130 178M150 125L178 172M120 124L102 165M140 128L152 168M158 122L195 160"/>')}${g(2,'<ellipse cx="215" cy="105" rx="55" ry="26"/><path d="M190 90V120M215 80V130M240 90V120"/>')}${g(1,'<ellipse cx="130" cy="105" rx="30" ry="25"/>')}${g(0,'<circle cx="70" cy="105" r="24"/><circle cx="62" cy="100" r="4"/>')}${g(3,'<path d="M62 84Q40 50 22 46M76 82Q74 46 62 28"/>')}</svg><div class="q">Quina part del cos és la que està marcada?</div><div class="grp">${P.map((x,j)=>`<button class="opt" onclick="ip(this,${j})">${x}</button>`).join("")}</div><div id="fb"></div></div>`;
+}
+function ip(b,j){
+if(j===st.ps[st.i]){hit();b.classList.add("ok");document.querySelectorAll(".opt").forEach(x=>x.disabled=true);document.getElementById("fb").innerHTML=`<p><b>Correcte! 🎉</b></p><button class="btn" onclick="st.i++;inn()">Continua</button>`}
+else{st.err++;miss();b.classList.add("bad","fx");b.disabled=true}
+}
+// ===== Gamificació =====
+const STK=[["🦋","Papallona"],["🐙","Polp"],["🐌","Caragol"],["🦓","Zebra"],["🐬","Dofí"],["🦅","Àguila reial"],["🐸","Granota"],["🐢","Tortuga"],["🦊","Guineu"],["🐘","Elefant"],["🐝","Abella"],["🦀","Cranc"],["🐞","Marieta"],["🐠","Peix pallasso"],["🦎","Iguana"],["🐿️","Esquirol"],["🕷️","Aranya"],["⭐","Estrella de mar"],["🐔","Gallina"],["🦑","Calamar"]];
+const OK=["🤩 Genial!","💥 Brutal!","🌟 Fantàstic!","👏 Molt bé!","😎 Ets un crack!","🚀 Endavant!"],NO=["😅 Quasi!","💪 Ànim, tu pots!","🤔 Torna-ho a provar!"];
+let G={pts:0,combo:0,best:0,stk:[],s3:0,mute:0},tm;
+try{Object.assign(G,JSON.parse(localStorage.getItem("animals26")||"{}"));G.combo=0}catch(e){}
+const save=()=>{try{localStorage.setItem("animals26",JSON.stringify(G))}catch(e){}};
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function hud(){document.getElementById("hud").innerHTML=`<span class="lv">Nv ${Math.floor(G.pts/100)+1}</span><div class="xp"><i style="width:${G.pts%100}%"></i></div><span>⭐${G.pts}</span><span class="cmb ${G.combo>=3?"hot":""}">🔥${G.combo}</span><button onclick="G.mute=!G.mute;hud()" aria-label="So">${G.mute?"🔇":"🔊"}</button>`}
+function snd(ok){if(G.mute)return;try{const a=snd.c||(snd.c=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),g=a.createGain(),t=a.currentTime,f=ok?[660,880]:[220,160];o.connect(g);g.connect(a.destination);o.type="triangle";o.frequency.setValueAtTime(f[0],t);o.frequency.setValueAtTime(f[1],t+.12);g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.start();o.stop(t+.3)}catch(e){}}
+function toast(t,c){const e=document.createElement("div");e.className="toast "+c;e.textContent=t;document.getElementById("fxl").appendChild(e);setTimeout(()=>e.remove(),1100)}
+function confetti(n){const c=document.getElementById("fxl");for(let i=0;i<n;i++){const d=document.createElement("i");d.style.cssText=`left:${Math.random()*100}%;background:hsl(${Math.random()*360},85%,60%);--dx:${(Math.random()-.5)*200}px;animation-delay:${Math.random()*.3}s`;c.appendChild(d);setTimeout(()=>d.remove(),2300)}}
+function burst(el){const r=el.getBoundingClientRect(),c=document.getElementById("fxl");for(let i=0;i<10;i++){const d=document.createElement("b");d.style.cssText=`left:${r.left+r.width/2}px;top:${r.top+r.height/2}px;--dx:${(Math.random()-.5)*140}px;--dy:${(Math.random()-.5)*140}px;background:hsl(${Math.random()*360},90%,60%)`;c.appendChild(d);setTimeout(()=>d.remove(),700)}}
+function line(a,b){const A=a.getBoundingClientRect(),B=b.getBoundingClientRect(),x=A.right,y=A.top+A.height/2,X=B.left,Y=B.top+B.height/2,d=document.createElement("u");d.style.cssText=`left:${x}px;top:${y}px;width:${Math.hypot(X-x,Y-y)}px;transform:rotate(${Math.atan2(Y-y,X-x)}rad)`;document.getElementById("fxl").appendChild(d);burst(a);burst(b);setTimeout(()=>d.remove(),900)}
+function hit(){const lv=Math.floor(G.pts/100);G.combo++;G.best=Math.max(G.best,G.combo);G.pts+=10+Math.min(G.combo,5)*2;snd(1);
+toast(G.combo>=8?"🔥🔥 Combo x"+G.combo+"!":G.combo>=3?"🔥 Combo x"+G.combo+"!":rnd(OK),"");confetti(G.combo>=3?45:12);
+if(Math.floor(G.pts/100)>lv)setTimeout(()=>{toast("🆙 Nivell "+(lv+2)+"!","");confetti(70)},700);save();hud()}
+function miss(){G.combo=0;snd(0);toast(rnd(NO),"no");try{navigator.vibrate(120)}catch(e){}hud()}
+function album(){hud();$.innerHTML=head("🎟️ Àlbum de cromos")+`<p class="sub">Has aconseguit ${G.stk.length} de ${STK.length}. Juga per guanyar-ne més!</p><div class="stg">${STK.map((s,i)=>G.stk.includes(i)?`<div class="stk on" style="--c:hsl(${i*37},75%,84%)"><div class="se">${s[0]}</div><b>${s[1]}</b></div>`:`<div class="stk"><div class="se">❔</div><b>???</b></div>`).join("")}</div>`}
+function home(){clearInterval(tm);hud();
+const bd=[["🔥","Combo x5",G.best>=5],["⭐","300 punts",G.pts>=300],["🎟️","10 cromos",G.stk.length>=10],["🏅","3 estrelles",G.s3>0]];
+$.innerHTML=`<div class="hero"><div class="mascot">🦋</div><h1>Els animals</h1><p class="sub">Unitat 2 · Coneixement del Medi</p></div>
+<div class="menu"><button onclick="study()"><span class="big">📖</span>Estudia</button><button onclick="quiz()"><span class="big">❓</span>Preguntes</button><button onclick="cls('vert')"><span class="big">🧩</span>Classifica</button><button onclick="mix()"><span class="big">⏱️</span>Repte final</button><button onclick="lk('gr')"><span class="big">🔗</span>Enllaça</button><button onclick="ins()"><span class="big">🐝</span>Parts de l’insecte</button><button class="wide" onclick="album()"><span class="big">🎟️</span>Àlbum de cromos (${G.stk.length}/${STK.length})</button></div>
+<div class="bd">${bd.map(b=>`<span class="${b[2]?"":"off"}"><em>${b[0]}</em>${b[1]}</span>`).join("")}</div>
+<details class="card"><summary><b>Més temes d’Enllaça i Classifica</b></summary><p><b>Enllaça</b></p><div class="grp">${Object.keys(L).map(k=>`<button class="opt" onclick="lk('${k}')">${L[k].t}</button>`).join("")}</div><p><b>Classifica</b></p><div class="grp">${Object.keys(C).map(k=>`<button class="opt" onclick="cls('${k}')">${C[k].t}</button>`).join("")}</div></details>`}
+function quiz(n=10,pool=Q,mode=""){st={qs:sh(pool).slice(0,n),i:0,ok:0,hp:5,mode};qn()}
+function mix(){quiz(15,Q,"mix")}
+const hearts=()=>"❤️".repeat(Math.max(0,st.hp))+"🖤".repeat(5-Math.max(0,st.hp));
+function qn(){clearInterval(tm);const q=st.qs[st.i];
+if(!q||st.hp<=0)return fin(st.ok,st.qs.length,st.mode?"mix()":"quiz()");
+const o=sh([[q[1],1],[q[2],0],[q[3],0]]);
+$.innerHTML=head(`Pregunta ${st.i+1}/${st.qs.length}`)+`<div class="hp" id="hp">${hearts()}</div><div class="bar"><i style="width:${st.i/st.qs.length*100}%"></i></div>${st.mode?'<div class="tbar"><i id="tb"></i></div>':""}<div class="card"><div class="q">${q[0]}</div>${o.map(x=>`<button class="opt" data-c="${x[1]}" onclick="pick(this)">${x[0]}</button>`).join("")}<div id="fb"></div></div>`;
+if(st.mode){let t=20;tm=setInterval(()=>{t-=.1;const e=document.getElementById("tb");if(e)e.style.width=t/20*100+"%";if(t<=0)pick(null)},100)}}
+function pick(b){const all=[...document.querySelectorAll(".opt")];if(!all.length||all.some(x=>x.disabled))return;clearInterval(tm);
+all.forEach(x=>{x.disabled=true;if(x.dataset.c==="1")x.classList.add("ok")});
+if(b&&b.dataset.c==="1"){st.ok++;hit()}else{if(b)b.classList.add("bad","fx");st.hp--;miss()}
+document.getElementById("hp").textContent=hearts();
+document.getElementById("fb").innerHTML=`<button class="btn" onclick="st.i++;qn()">Continua</button>`}
+function fin(ok,n,again){clearInterval(tm);const r=ok/n,s=r>=.9?3:r>=.6?2:r>=.3?1:0,nw=[];
+for(let k=0;k<(s==3?2:s?1:0);k++){const l=STK.map((x,i)=>i).filter(i=>!G.stk.includes(i));if(l.length){const i=rnd(l);G.stk.push(i);nw.push(i)}}
+if(s==3)G.s3++;G.pts+=ok*5+s*20;save();hud();
+$.innerHTML=head("Resultat")+`<div class="card end"><div class="item">${s==3?"🏆":s?"👏":"💪"}</div><div class="q">${ok} de ${n} encertades${st.hp<=0?" · s’han acabat les vides":""}</div><div class="item" style="font-size:2.4rem">${star(s)}</div><p>⭐ +${ok*5+s*20} punts extra</p>${nw.length?"<p><b>🎉 Nou cromo!</b></p>"+nw.map(i=>`<div class="newst" style="--c:hsl(${i*37},75%,84%)"><div class="se">${STK[i][0]}</div><b>${STK[i][1]}</b></div>`).join(""):"<p>Encerta més per guanyar cromos!</p>"}<button class="btn" onclick="${again}">Torna a jugar</button><button class="btn" style="background:#f08a24" onclick="album()">🎟️ Àlbum de cromos</button></div>`;
+if(s)confetti(s*40)}
+// ===== Estudia visual =====
+const T=[
+["🍽️","Nutrició i respiració","#0e8b8f",[["🍽️","Amb la nutrició, els animals obtenen energia i substàncies per viure."],["🦓🐇","Herbívors: s’alimenten de parts de plantes."],["🦅🐍","Carnívors: s’alimenten d’altres animals."],["🦊🐔","Omnívors: s’alimenten de plantes i d’altres animals."],["🐭","Pulmons: prenen l’oxigen de l’aire."],["🐟","Brànquies: prenen l’oxigen de l’aigua."]]],
+["👀","Relació i reproducció","#1e88d6",[["👀👂👃","Els òrgans dels sentits reben informació del voltant."],["🧠","El cervell la interpreta i dona una resposta."],["🐟","La línia lateral dels peixos detecta moviment en l’aigua."],["🐔🥚","Ovípars: les femelles ponen ous."],["🐘","Vivípars: les cries creixen al ventre de la mare."],["⭐","Reproducció asexual: intervé un sol progenitor. Sexual: femella i mascle."]]],
+["🦴","Vertebrats","#d94a78",[["🦴","Tenen un esquelet intern amb columna vertebral."],["🐱","El cos té tres parts: cap, tronc i cua."],["🐠🐸","Peixos i amfibis."],["🦎🦅","Rèptils i ocells."],["🐿️🐬","Mamífers."]]],
+["🪼","Invertebrats","#7a55c9",[["🚫🦴","No tenen columna vertebral i són ovípars."],["🧽","Esponges: forma irregular, fixes al fons del mar."],["🪼","Meduses: forma de paraigua i tentacles que piquen."],["🪱","Cucs: allargats i sense potes."],["⭐","Equinoderms: estrelles i eriçons de mar."],["🐌🦋","Mol·luscs i artòpodes (mira els temes següents)."]]],
+["🐌","Mol·luscs","#c98a0b",[["🐙🐌","Cos tou, la majoria protegit per una o dues conquilles."],["🪦","Bivalves: dues conquilles. Tots són aquàtics."],["🐌","Gasteròpodes: closca en espiral. Les bavoses no en tenen."],["🦑🐙","Cefalòpodes: marins, amb tentacles amb ventoses."]]],
+["🦋","Insectes","#2e9e5b",[["🐜","Artòpodes: coberta dura i potes amb articulacions."],["🐝","Cos en tres parts: cap, tòrax i abdomen."],["🦵📡","Sis potes i dues antenes."],["🥚➡️🐛➡️🦋","Metamorfosi: ou, larva (eruga) i adult."],["🦋","Papallones: quatre ales paregudes."],["🪰","Mosques i mosquits: dues ales normals i dues de molt xicotetes."],["🪲","Escarabats: dues ales gruixudes que protegeixen altres dues."]]]
+];
+function study(){hud();$.innerHTML=head("📖 Estudia")+`<p class="sub">Tria un tema i toca les fitxes! Cada tema acabat dona punts.</p><div class="menu">${T.map((t,i)=>`<button style="background:${t[2]}" onclick="tp(${i},0)"><span class="big">${t[0]}</span>${t[1]}${(G.seen||[]).includes(i)?" ✅":""}</button>`).join("")}</div><button class="btn" style="background:var(--blue)" onclick="studyText()">📄 Resum en text</button>`}
+function tp(i,j){const t=T[i],s=t[3][j],n=t[3].length;
+$.innerHTML=head(t[1])+`<div class="bar"><i style="width:${(j+1)/n*100}%"></i></div><div class="card end" style="border-top:8px solid ${t[2]}"><div class="item" style="font-size:${s[0].length>4?3.6:6}rem;word-break:break-all">${s[0]}</div><div class="q">${s[1]}</div></div><div class="grp"><button class="opt" ${j?"":"disabled"} onclick="tp(${i},${j-1})">◀ Enrere</button>${j<n-1?`<button class="opt" onclick="tp(${i},${j+1})">Següent ▶</button>`:`<button class="btn" style="margin:0" onclick="td(${i})">Fet! ✅</button>`}</div>`}
+function td(i){G.seen=G.seen||[];if(!G.seen.includes(i)){G.seen.push(i);G.pts+=15;save();confetti(60);toast("🌟 +15 punts!","")}study()}
+home();
+</script>
+<a class="homelink" href="index.html">🏠 Menú</a>
+</body>
+</html>
