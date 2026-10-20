@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preparación del examen</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--ink:#2d2a4a;--mut:#6f6a8f;--line:#e5defa;--pri:#ff7a45;--priD:#d9531e;--blue:#3b82f6;--blueD:#1f5ec9;--green:#22b573}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.3;background:linear-gradient(180deg,#7dd3fc 0%,#c4b5fd 55%,#fbcfe8 100%) fixed;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+main{max-width:560px;margin:0 auto;padding:14px}
+.hide{display:none!important}
+.card{background:#fff;border-radius:24px;padding:16px;margin-bottom:14px;box-shadow:0 6px 0 rgba(45,42,74,.12)}
+.center{text-align:center}
+h1{font-size:30px;margin:0;line-height:1.05}
+h2{font-size:21px;margin:0 0 4px}
+p{margin:4px 0}
+.mut{color:var(--mut);font-size:15px}
+.hero{display:flex;gap:12px;align-items:center}
+.mascot{font-size:56px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+.mascot.sm{font-size:40px;animation:none}
+.mascot.big{font-size:84px}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.pills{display:flex;gap:8px;margin-top:10px}
+.pill{background:#fff6d6;border-radius:99px;padding:6px 14px;font-weight:700}
+.btn{font:inherit;font-weight:700;border:0;border-radius:16px;padding:14px 18px;color:#fff;background:var(--pri);box-shadow:0 5px 0 var(--priD);cursor:pointer;width:100%;margin-top:12px}
+.btn.blue{background:var(--blue);box-shadow:0 5px 0 var(--blueD)}
+.btn.ghost{background:#fff;color:var(--ink);box-shadow:0 5px 0 var(--line);border:2px solid var(--line)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.btn.sm{width:auto;padding:8px 14px;font-size:15px;margin-top:6px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.seg button{font:inherit;font-weight:700;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:14px;padding:10px 6px;cursor:pointer}
+.seg button.on{border-color:var(--pri);background:#fff0e8}
+.lvs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.lv{font:inherit;color:var(--ink);background:#f5f2ff;border:0;border-radius:16px;padding:10px 4px;box-shadow:0 4px 0 var(--line);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.lv:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.lv .ic{font-size:34px}
+.lv small{color:var(--mut)}
+.lv.lock{opacity:.55}
+.lv .stl{font-size:15px;letter-spacing:1px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700}
+.tbar{position:relative;height:26px;border-radius:99px;background:#eee9ff;overflow:hidden;margin-top:10px}
+#tfill{height:100%;background:var(--green);width:100%;transition:width .25s linear}
+#tfill.low{background:#ef4444}
+#ttxt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.say{display:flex;gap:8px;align-items:center;margin-top:12px}
+.bubble{flex:1;border:3px solid #7dd3fc;background:#e0f2fe;border-radius:18px;padding:10px 12px;font-weight:600;font-size:16px;min-height:62px;display:flex;align-items:center}
+.bubble.ok{background:#dcfce7;border-color:#86efac}
+.bubble.doubt{background:#fef3c7;border-color:#fcd34d}
+#board{display:grid;gap:6px;margin:14px 0 4px;align-items:center}
+.chip{color:#fff;font-weight:700;font-size:14px;text-align:center;border-radius:8px;padding:3px 0}
+.cell{height:56px;min-width:0;display:flex;align-items:center;justify-content:center;border:3px solid var(--line);border-radius:14px;background:#faf8ff;font:700 30px "Fredoka",monospace;color:var(--ink);padding:0;position:relative;text-align:center}
+.cell.sm{height:40px;font-size:22px;color:var(--blue)}
+.cell.big2{font-size:22px}
+.cell.tap{border:3px dashed var(--blue);cursor:pointer;background:#eef4ff;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 4px rgba(59,130,246,.25)}}
+.cell .ghost{opacity:.5}
+.cell .old{position:absolute;top:1px;left:6px;font-size:13px;text-decoration:line-through;color:var(--mut)}
+input.cell{width:100%}
+input.cell:focus{outline:none;border-color:var(--pri);background:#fff}
+.sg{text-align:center;font:700 26px "Fredoka",monospace;color:var(--mut)}
+.ln{grid-column:1 / -1;height:5px;border-radius:3px;background:var(--ink)}
+.bigstars{font-size:46px;letter-spacing:4px;margin:6px 0}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:9}
+.conf span{position:absolute;top:-50px;animation:fall 2.2s ease-in forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(360deg)}}
+.tops{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.qtext{font-size:19px;font-weight:600;margin:10px 0}
+.opts{display:grid;gap:8px;margin:8px 0}
+.opt{font:inherit;font-weight:600;color:var(--ink);background:#f5f2ff;border:0;border-radius:14px;padding:12px;box-shadow:0 4px 0 var(--line);cursor:pointer}
+.opt:disabled{opacity:.5}
+.qin{width:100%;font:700 26px "Fredoka",monospace;text-align:center;padding:12px;border:3px solid var(--line);border-radius:14px;margin:8px 0}
+.qin:focus{outline:none;border-color:var(--pri)}
+.chart{width:100%;height:auto;display:block;margin:4px 0}
+.big{display:grid;grid-template-columns:66px 1fr;column-gap:12px;align-items:center;width:100%;text-align:left;font:inherit;border:0;border-radius:24px;padding:16px;margin-bottom:14px;color:#fff;cursor:pointer;box-shadow:0 7px 0 rgba(0,0,0,.22)}
+.big:active{transform:translateY(5px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
+.big .bi{grid-row:1/3;font-size:48px;text-align:center;line-height:1}
+.big .bt{font-size:27px;font-weight:700;line-height:1.1}
+.big .bd{font-size:16px;opacity:.95}
+.bpurple{background:#8a4fd6}
+.bval{font-size:56px;font-weight:700;text-align:center;line-height:1.1}
+.bsum{text-align:center;color:var(--mut);font-weight:600;margin-bottom:6px}
+.bgoalbar{height:14px;background:var(--line);border-radius:9px;overflow:hidden}
+.bgoalbar div{height:100%;background:var(--green);transition:width .3s}
+.bcols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.bcol{background:#faf8ff;border-radius:14px;padding:6px 4px;text-align:center;min-height:200px}
+.bhd{color:#fff;font-weight:700;border-radius:8px;padding:2px 0;font-size:14px}
+.bcnt{font-size:12px;color:var(--mut);margin:4px 0}
+.barea{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;align-items:flex-end}
+.blku{width:16px;height:16px;background:#2f6fe4;border-radius:3px}
+.blkd{width:16px;height:56px;border-radius:3px;cursor:pointer;background:repeating-linear-gradient(#1f9d55 0 5px,#168553 5px 6px)}
+.blkc{width:48px;height:48px;border-radius:4px;cursor:pointer;background-color:#d64545;background-image:linear-gradient(rgba(0,0,0,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.2) 1px,transparent 1px);background-size:4.8px 4.8px}
+.blkm{width:56px;height:56px;border-radius:6px;cursor:pointer;background:#8a4fd6;box-shadow:inset -6px -6px 0 rgba(0,0,0,.25),inset 4px 4px 0 rgba(255,255,255,.3)}
+.gbtn{font-size:13px;padding:8px 2px;margin-top:6px;animation:pulse 1.4s ease-in-out infinite}
+.bgreen{background:#22b573}.borange{background:#ff7a45}.bblue{background:#3b82f6}
+.calc{border:3px dashed var(--line);border-radius:18px;padding:10px;margin-top:14px;background:#faf8ff}
+.clab{font-weight:700;font-size:16px;margin-bottom:8px}
+.cw{margin-bottom:8px}
+.crow{display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr) 14px minmax(0,1fr) 22px;gap:4px;align-items:center}
+.ci{width:100%;min-width:0;height:46px;font:700 20px "Fredoka",monospace;text-align:center;border:3px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);padding:0}
+.ci:focus{outline:none;border-color:var(--pri)}
+.cop{height:46px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:700 24px "Fredoka",sans-serif;cursor:pointer;padding:0;margin:0;width:100%}
+.ceq{text-align:center;font-weight:700}
+.cst{font-size:16px;text-align:center}
+.cpre{font:700 20px "Courier New",monospace;white-space:pre;background:#fff;border-radius:10px;padding:6px 10px;margin-top:6px;display:inline-block}
+.cbt{display:flex;gap:6px;flex-wrap:wrap}
+.cin{border:2px dashed var(--blue)!important;background:#eef4ff!important}
+.cell.sm.cin{height:34px;font-size:18px}
+.cg{display:grid;gap:4px;align-items:center}
+.cg input.cell{height:44px;font-size:24px}
+.cg input.cell.sm{height:34px;font-size:18px}
+.csheet{background:#fff;border-radius:14px;padding:8px;margin-bottom:8px}
+.clab2{font-weight:700;font-size:14px;color:var(--mut);margin-bottom:4px}
+.cst2{min-height:22px;font-weight:700;font-size:15px;margin-top:4px;text-align:center}
+.vop{font:700 30px "Courier New",monospace;white-space:pre;text-align:center;background:#faf8ff;border-radius:14px;padding:10px 16px;margin:8px auto;display:table;line-height:1.25}
+.fstage{position:relative;margin:0 auto;border-radius:24px;overflow:hidden;box-shadow:0 5px 0 var(--line)}
+.fstage span{position:absolute;line-height:1;transform:translate(-50%,-50%);white-space:nowrap}
+.ftabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.ftab{font:inherit;font-weight:700;border:3px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:8px 10px;cursor:pointer}
+.ftab.on{border-color:var(--pri);background:#fff0e8}
+.lv.worn{outline:3px solid var(--green)}
+.chint{font-size:13px;color:var(--mut);margin-bottom:6px}
+.cg input.cell.xed{text-decoration:line-through;color:var(--mut);background:#f3eefc}
+.cg div.cell{height:44px;font-size:24px}
+.cwrap{position:relative}
+.cwrap input.cell{width:100%}
+.old2{position:absolute;top:1px;left:5px;font-size:12px;text-decoration:line-through;color:var(--mut);pointer-events:none}
+.alab{font-weight:700;margin-top:10px}
+.sbar{height:12px;border-radius:8px;background:var(--line);overflow:hidden;margin:6px 0 12px}
+.sbar div{height:100%;background:var(--green);transition:width .3s}
+.scard{background:#fff;border:0;border-top:10px solid var(--pri);border-radius:20px;padding:16px;text-align:center;box-shadow:0 5px 0 var(--line);margin-bottom:12px}
+.sic{font-size:60px;line-height:1.1}
+.stx{font-size:19px;font-weight:600;margin-top:8px;text-align:left}
+.snav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (prefers-reduced-motion:reduce){.mascot,.cell.tap,.conf span{animation:none}}
+
+
+.homelink{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;background:#fff;color:#2d2a4a;font:700 15px "Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;text-decoration:none;border-radius:99px;padding:9px 16px;box-shadow:0 4px 0 rgba(0,0,0,.2);border:2px solid #e5defa}
+.homelink:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+main{padding-bottom:76px!important}
+
+.sbig{display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:22px;padding:16px;color:#fff;font:inherit;text-align:left;cursor:pointer;margin-bottom:14px;box-shadow:0 6px 0 rgba(0,0,0,.22)}
+.sbig:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.22)}
+.sbig .bi{font-size:46px}.sbig .bt{font-size:22px;font-weight:700;display:block}.sbig .bd{display:block;font-size:15px;opacity:.95}
+.orow .oh{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.orow .on{background:var(--pri);color:#fff;border-radius:50%;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.orow .oh b{flex:1}.pc{font-weight:700;color:var(--mut)}
+.snav .btn{width:100%}
+.orow2{display:grid;grid-template-columns:1fr 64px 42px;gap:8px;align-items:center;margin:8px 0;font-size:15px}
+.orow2 .sbar{margin:0}
+.wr{border-top:2px dashed var(--line);padding:10px 0}
+.wr .ok2{color:var(--ok,#1f9d55);font-weight:700;margin:4px 0}
+.wr .vop{font-size:22px;padding:6px 10px}
+.opts{display:grid;gap:8px;margin-top:10px}
+</style>
+</head>
+<body>
+<main><div id="app"></div></main>
+<div class="conf" id="conf"></div>
+<a class="homelink" href="index.html">🏠 Menú</a>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var NP=["unidades","decenas","centenas","unidades de millar","decenas de millar"];
+  var SP=["unidad","decena","centena","unidad de millar","decena de millar"];
+  function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+  function digits(n){return String(n).split("").reverse().map(Number)}
+  function el(cls,txt){var d=document.createElement("div");d.className=cls;if(txt!==undefined)d.textContent=txt;return d}
+  function setMsg(t,k,id){var m=$(id||"msg");m.textContent=t;m.className="bubble "+(k||"info")}
+  function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+  function fmt(n){return n>=1000?String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."):String(n)}
+  function confetti(){
+    var box=$("conf"),em=["🎉","⭐","✨","🎈","🪙"],i;
+    box.textContent="";
+    for(i=0;i<24;i++){var s=document.createElement("span");s.textContent=em[i%5];s.style.left=rnd(0,94)+"%";s.style.animationDelay=(Math.random()*0.6)+"s";s.style.fontSize=rnd(18,34)+"px";box.appendChild(s)}
+    setTimeout(function(){box.textContent=""},2900);
+  }
+  function vert(nums,op,res){
+    var f=nums.map(fmt),all=res!==undefined?f.concat([fmt(res)]):f,w=Math.max.apply(null,all.map(function(x){return x.length}))+1,out=[];
+    f.forEach(function(x,i){out.push((i===f.length-1?op:" ")+x.padStart(w," "))});
+    out.push("—".repeat(w+1));
+    if(res!==undefined)out.push(" "+fmt(res).padStart(w," "));
+    return out.join("\n");
+  }
+  function calcPanel(){
+    var box=el("calc"),sheets=el("csheets"),W=5,LBL=["DM","UM","C","D","U"],CLR=["#a8650a","#8a4fd6","#d64545","#1f9d55","#2f6fe4"],cnt=0;
+    box.appendChild(el("clab","✏️ Zona de cálculo: haz tu cuenta en vertical"));
+    box.appendChild(sheets);
+    function row(g,cls,dir,wr){
+      var arr=[],k,i2,w;arr.wr=[];
+      for(k=0;k<W;k++){
+        i2=document.createElement("input");i2.className="cell "+cls;i2.inputMode="numeric";i2.maxLength=1;i2.autocomplete="off";
+        i2.oninput=(function(idx){return function(){
+          this.value=this.value.replace(/\D/g,"").slice(-1);
+          if(this.value&&dir!=="n"){var nx=arr[dir==="r"?idx+1:idx-1];if(nx)nx.focus()}
+          g.upd();
+        }})(k);
+        i2.onkeydown=(function(idx){return function(e){
+          if(e.key==="Backspace"&&this.value===""&&dir!=="n"){var pv=arr[dir==="r"?idx-1:idx+1];if(pv)pv.focus()}
+        }})(k);
+        if(wr){w=el("cwrap");w.appendChild(i2);w.appendChild(el("old2"));g.appendChild(w);arr.wr.push(w)}else g.appendChild(i2);
+        arr.push(i2);
+      }
+      return arr;
+    }
+    function sheet(n){
+      var wrap=el("csheet"),g=el("cg"),st=el("cst2"),hint=el("chint","Casillas de arriba: escribe lo que te llevas."),
+          sgn="+",third=false,des=false,orig=[],cur=[],ovals=[],t3=[],r1,r2,r3,rs,cr,sb,b3,bd,k,p;
+      function dv(a,q){var v=a[W-1-q].value;return v===""?0:+v}
+      function val(a){return a.map(function(x){return x.value}).join("")}
+      function origNum(){var t=0,q;for(q=0;q<W;q++)t+=orig[q]*Math.pow(10,q);return t}
+      function needs(q){
+        if(q<0)return false;
+        if(cur[q]<dv(r2,q))return true;
+        if(cur[q]===0&&q>=1)return needs(q-1);
+        return false;
+      }
+      function paint(){
+        var kk,q;
+        for(kk=0;kk<W;kk++){
+          q=W-1-kk;
+          r1[kk].value=(ovals[kk]===""&&cur[q]===0)?"":String(cur[q]);
+          r1.wr[kk].children[1].textContent=(ovals[kk]!==""&&cur[q]!==orig[q])?String(orig[q]):"";
+        }
+      }
+      function enterDes(){
+        var q,kk;
+        if(val(r1)===""||val(r2)===""){hint.textContent="Primero escribe los dos números en sus columnas.";return false}
+        for(kk=0;kk<W;kk++)ovals[kk]=r1[kk].value;
+        for(q=0;q<W;q++){orig[q]=dv(r1,q);cur[q]=orig[q]}
+        des=true;r1.forEach(function(x){x.readOnly=true});
+        return true;
+      }
+      function exitDes(){
+        var kk;
+        des=false;
+        for(kk=0;kk<W;kk++){r1[kk].readOnly=false;r1[kk].value=ovals[kk]||"";r1.wr[kk].children[1].textContent=""}
+      }
+      function tapA(kk){
+        var q=W-1-kk;
+        if(!des||q<1)return;
+        if(cur[q]<1){hint.textContent="Aquí no queda nada para desagrupar. Prueba con otra casilla de la izquierda.";return}
+        if(!needs(q-1)){hint.textContent="🤔 ¿Seguro? Aquí todavía no hace falta desagrupar. Fíjate en qué columna no puedes restar.";return}
+        cur[q]--;cur[q-1]+=10;
+        paint();
+        hint.textContent="✨ Has desagrupado 1 "+SP[q]+" en 10 "+NP[q-1]+".";
+        g.upd();
+      }
+      function mode(){
+        var m=sgn==="−";
+        cr.forEach(function(x){x.style.visibility=m?"hidden":"visible"});
+        bd.style.display=m?"":"none";
+        bd.textContent="🔓 Desagrupar un número";
+        hint.textContent=m?"Escribe los números. Si no puedes restar una columna, pulsa Desagrupar y toca el número de la izquierda.":"Casillas de arriba: escribe lo que te llevas.";
+      }
+      wrap.appendChild(el("clab2","Cuenta "+n+" · escribe cada cifra en su columna"));wrap.appendChild(hint);
+      g.style.gridTemplateColumns="26px repeat("+W+",minmax(0,1fr))";
+      g.appendChild(el("sg"));
+      LBL.forEach(function(t,i){var c=el("chip",t);c.style.background=CLR[i];g.appendChild(c)});
+      g.appendChild(el("sg"));cr=row(g,"sm cin","n");
+      g.appendChild(el("sg"));r1=row(g,"","r",true);
+      r1.forEach(function(x,i){x.onclick=function(){if(des)tapA(i)}});
+      sb=document.createElement("button");sb.type="button";sb.className="cop";sb.textContent="+";
+      sb.onclick=function(){sgn=sgn==="+"?"−":"+";sb.textContent=sgn;if(des)exitDes();mode();g.upd()};
+      g.appendChild(sb);r2=row(g,"","r");
+      var s3=el("sg","+");g.appendChild(s3);r3=row(g,"","r");
+      t3=[s3].concat(r3);
+      t3.forEach(function(x){x.style.display="none"});
+      g.appendChild(el("ln"));
+      g.appendChild(el("sg"));rs=row(g,"","l");
+      g.upd=function(){
+        var A=des?String(origNum()):val(r1),B=val(r2),T=val(r3),C=val(rs),r;
+        st.textContent="";
+        if(A!==""&&B!==""&&C!==""&&(!third||T!=="")){
+          r=(sgn==="+"?(+A)+(+B):(+A)-(+B))+(third?(+T):0);
+          st.textContent=r===(+C)?"✔ Tu cuenta sale bien":"🤔 Revisa tu cuenta";
+        }
+      };
+      wrap.appendChild(g);wrap.appendChild(st);
+      bd=document.createElement("button");bd.type="button";bd.className="btn ghost sm";bd.style.display="none";
+      bd.onclick=function(){
+        if(!des){if(enterDes()){bd.textContent="✏️ Volver a escribir";hint.textContent="Toca un número de arriba (a la izquierda de la columna que no puedes restar) para desagruparlo."}}
+        else{exitDes();bd.textContent="🔓 Desagrupar un número";hint.textContent="Escribe los números. Si no puedes restar una columna, pulsa Desagrupar y toca el número de la izquierda."}
+        g.upd();
+      };
+      wrap.appendChild(bd);
+      b3=document.createElement("button");b3.type="button";b3.className="btn ghost sm";b3.textContent="➕ Tercer número";
+      b3.onclick=function(){third=!third;t3.forEach(function(x){x.style.display=third?"":"none"});b3.textContent=third?"➖ Quitar tercer número":"➕ Tercer número";g.upd()};
+      wrap.appendChild(b3);
+      wrap.res=function(){var t=val(rs);return t===""?null:(+t)};
+      return wrap;
+    }
+    function add(){if(cnt>=3)return;cnt++;sheets.appendChild(sheet(cnt))}
+    add();
+    var bt=el("cbt");
+    [["📄 Otra cuenta",add],["🧹 Borrar todo",function(){sheets.textContent="";cnt=0;add()}]].forEach(function(x){
+      var b=document.createElement("button");b.type="button";b.className="btn ghost sm";b.textContent=x[0];b.onclick=x[1];bt.appendChild(b);
+    });
+    box.appendChild(bt);
+    box.last=function(){var i,r;for(i=sheets.children.length-1;i>=0;i--){r=sheets.children[i].res();if(r!==null)return r}return null};
+    return box;
+  }
+
+
+  var D={"Q":[["Quines són les funcions vitals dels animals?","Nutrició, relació i reproducció","Respiració, son i joc","Menjar, córrer i dormir"],["Amb la funció de nutrició, els animals obtenen…","l’energia i les substàncies que necessiten per viure","informació del que ocorre al seu voltant","cries semblants a ells"],["Els herbívors s’alimenten…","de parts de plantes","d’altres animals","de plantes i d’altres animals"],["Els carnívors s’alimenten…","d’altres animals","de parts de plantes","de plantes i d’altres animals"],["Els omnívors s’alimenten…","de plantes i d’altres animals","només de plantes","només d’altres animals"],["On es troba l’oxigen que necessiten els animals?","A l’aire i a l’aigua","Només a la terra","Només al mar"],["Com s’aconsegueix l’oxigen?","Mitjançant la respiració","Mitjançant la reproducció","Mitjançant la metamorfosi"],["Alguns animals prenen l’oxigen de l’aire a través dels…","pulmons","brànquies","ulls"],["Les brànquies són unes làmines que estan en contacte amb…","l’aigua","l’aire","el menjar"],["Els dofins viuen a l’aigua. Com respiren?","Amb pulmons, a la superfície","Amb brànquies","Amb la pell"],["Amb la funció de relació, els animals reben informació a través dels…","òrgans dels sentits","pulmons","ossos"],["Quina part del cos rep la informació, la interpreta i hi dona una resposta?","El cervell","El crani","La cua"],["La línia lateral és un òrgan dels sentits dels…","peixos","ocells","insectes"],["Amb la funció de reproducció, els animals tenen…","cries semblants a ells","més energia","més oxigen"],["En la reproducció asexual intervé…","un sol progenitor","una femella i un mascle","tres progenitors"],["En la reproducció sexual intervenen…","una femella i un mascle","un sol progenitor","només la femella"],["Els animals ovípars…","ponen ous","tenen les cries al ventre","no es reprodueixen"],["Els animals vivípars…","tenen les cries al ventre de la mare fins al naixement","ponen ous","es reprodueixen a partir d’un braç"],["Els vertebrats tenen un esquelet intern format per ossos amb una…","columna vertebral","closca","armadura"],["Quines són les tres parts del cos dels vertebrats?","Cap, tronc i cua","Cap, tòrax i abdomen","Cap, potes i ales"],["On es troba el crani?","Dins del cap","Dins de la cua","Dins del tronc"],["Quins són els grups de vertebrats?","Peixos, amfibis, rèptils, ocells i mamífers","Esponges, meduses i cucs","Bivalves, gasteròpodes i cefalòpodes"],["Què tenen en comú tots els invertebrats?","No tenen columna vertebral i són ovípars","Tenen sis potes","Tenen conquilles"],["Les esponges…","tenen forma irregular i estan fixes sobre el fons del mar","tenen forma de paraigua","són allargades i no tenen potes"],["Quins animals tenen forma de paraigua i tentacles que poden causar picades?","Les meduses","Les esponges","Els cucs"],["Els cucs són…","allargats i no tenen potes","fixos al fons del mar","animals amb conquilla"],["Els equinoderms tenen un esquelet de plaques dures davall de la pell. Són…","les estrelles i els eriçons de mar","els cucs de terra","els calamars"],["Els mol·luscs tenen el cos…","tou, protegit per una o dues conquilles","dur, amb sis potes","allargat, sense potes"],["Les cloïsses estan protegides per…","dues conquilles","una closca en espiral","cap conquilla"],["Els bivalves tenen el cos protegit per…","dues conquilles","una closca en espiral","una closca a l’interior"],["Els gasteròpodes, com els caragols, es protegeixen dins d’una closca…","que s’enrotlla en espiral","amb dues parts","a l’interior del cos"],["Quin gasteròpode no té closca?","La bavosa","El caragol marí","La cloïssa"],["Els cefalòpodes tenen tentacles amb…","ventoses","pinces","ales"],["Quin cefalòpode no té closca a l’interior?","El polp","El calamar","La sépia"],["Els mol·luscs són ovípars. Ponen els ous…","a l’aigua o en llocs humits","a l’aire","a la neu"],["Quin és el grup d’animals més nombrós del regne animal?","Els artròpodes","Els mol·luscs","Els vertebrats"],["Els artròpodes estan coberts per diverses peces unides per articulacions com…","una armadura","una pell nua","un tou"],["El cos dels insectes està dividit en…","cap, tòrax i abdomen","cap, tronc i cua","cap i cua"],["Quantes potes i antenes tenen els insectes?","Sis potes i dues antenes","Quatre potes i sis antenes","Vuit potes i cap antena"],["La majoria dels insectes tenen…","dues o quatre ales","sis ales","cap ala"],["Els insectes són ovípars. Els que acaben d’eixir de l’ou reben el nom de…","larva","adult","nimfa"],["La transformació de la larva en adult es diu…","metamorfosi","respiració","reproducció"],["Les larves de les papallones són…","les erugues","els escarabats","les mosques"],["Quins insectes tenen quatre ales paregudes que empren per a volar?","Les papallones","Les mosques i els mosquits","Els escarabats"],["Quins insectes tenen dues ales normals i altres dues molt xicotetes?","Les mosques i els mosquits","Les papallones","Els escarabats"],["Quins insectes tenen dues ales gruixudes que protegeixen altres dues?","Els escarabats","Les papallones","Les mosques"],["Quantes espècies d’insectes poden viure en aigua salada?","Només tres","Més de mil","Cap"],["Per què són essencials els insectes per al planeta?","Són aliment d’ocells i intervenen en la reproducció de plantes","Perquè viuen al mar","Perquè no tenen potes"],["Qui utilitza el quadern de camp per anotar les observacions i fer dibuixos?","Els zoòlegs i les persones que estudien els animals","Només els mestres","Només els caçadors"]],"C":{"vert":{"t":"Grups de vertebrats","g":["Peixos","Amfibis","Rèptils","Ocells","Mamífers"],"i":[["🐠","Peix pallasso",0],["🦈","Tauró",0],["🐸","Granota",1],["🦎","Iguana",2],["🐍","Serp",2],["🦅","Àguila reial",3],["🐔","Gallina",3],["🐿️","Esquirol",4],["🐱","Gat",4],["🐇","Conill",4],["🐬","Dofí",4]]},"inv":{"t":"Grups d’invertebrats","g":["Esponges","Meduses","Cucs","Mol·luscs","Artròpodes","Equinoderms"],"i":[["🧽","Esponja",0],["🪼","Medusa",1],["🪱","Cuc de terra",2],["🐌","Caragol",3],["🐙","Polp",3],["🦪","Ostra",3],["🦀","Cranc",4],["🕷️","Aranya",4],["🐞","Marieta",4],["🦋","Papallona",4],["⭐","Estrella de mar",5]]},"ali":{"t":"Segons l’alimentació","g":["Herbívor","Carnívor","Omnívor"],"i":[["🦓","Zebra",0],["🐇","Conill",0],["🐄","Vaca",0],["🕷️","Aranya",1],["🐍","Serp",1],["🦅","Àguila reial",1],["🦊","Guineu",2],["🐔","Gallina",2]]},"mol":{"t":"Grups de mol·luscs","g":["Bivalves","Gasteròpodes","Cefalòpodes"],"i":[["🦪","Clòtxina",0],["🦪","Cloïssa",0],["🦪","Ostra",0],["🐌","Caragol terrestre",1],["🐚","Caragol marí",1],["🐌","Bavosa",1],["🐙","Polp",2],["🦑","Calamar",2],["🦑","Sépia",2]]},"rep":{"t":"Ovípars o vivípars?","g":["Ovípar","Vivípar"],"i":[["🐔","Gallina",0],["🐢","Tortuga",0],["🐸","Granota",0],["🐌","Caragol",0],["🦋","Papallona",0],["🐘","Elefant",1],["🐱","Gat",1],["🐬","Dofí",1],["🐒","Mico",1]]}},"T":[["🍽️","Nutrició i respiració","#0e8b8f",[["🍽️","Amb la nutrició, els animals obtenen energia i substàncies per viure."],["🦓🐇","Herbívors: s’alimenten de parts de plantes."],["🦅🐍","Carnívors: s’alimenten d’altres animals."],["🦊🐔","Omnívors: s’alimenten de plantes i d’altres animals."],["🐭","Pulmons: prenen l’oxigen de l’aire."],["🐟","Brànquies: prenen l’oxigen de l’aigua."]]],["👀","Relació i reproducció","#1e88d6",[["👀👂👃","Els òrgans dels sentits reben informació del voltant."],["🧠","El cervell la interpreta i dona una resposta."],["🐟","La línia lateral dels peixos detecta moviment en l’aigua."],["🐔🥚","Ovípars: les femelles ponen ous."],["🐘","Vivípars: les cries creixen al ventre de la mare."],["⭐","Reproducció asexual: intervé un sol progenitor. Sexual: femella i mascle."]]],["🦴","Vertebrats","#d94a78",[["🦴","Tenen un esquelet intern amb columna vertebral."],["🐱","El cos té tres parts: cap, tronc i cua."],["🐠🐸","Peixos i amfibis."],["🦎🦅","Rèptils i ocells."],["🐿️🐬","Mamífers."]]],["🪼","Invertebrats","#7a55c9",[["🚫🦴","No tenen columna vertebral i són ovípars."],["🧽","Esponges: forma irregular, fixes al fons del mar."],["🪼","Meduses: forma de paraigua i tentacles que piquen."],["🪱","Cucs: allargats i sense potes."],["⭐","Equinoderms: estrelles i eriçons de mar."],["🐌🦋","Mol·luscs i artòpodes (mira els temes següents)."]]],["🐌","Mol·luscs","#c98a0b",[["🐙🐌","Cos tou, la majoria protegit per una o dues conquilles."],["🪦","Bivalves: dues conquilles. Tots són aquàtics."],["🐌","Gasteròpodes: closca en espiral. Les bavoses no en tenen."],["🦑🐙","Cefalòpodes: marins, amb tentacles amb ventoses."]]],["🦋","Insectes","#2e9e5b",[["🐜","Artòpodes: coberta dura i potes amb articulacions."],["🐝","Cos en tres parts: cap, tòrax i abdomen."],["🦵📡","Sis potes i dues antenes."],["🥚➡️🐛➡️🦋","Metamorfosi: ou, larva (eruga) i adult."],["🦋","Papallones: quatre ales paregudes."],["🪰","Mosques i mosquits: dues ales normals i dues de molt xicotetes."],["🪲","Escarabats: dues ales gruixudes que protegeixen altres dues."]]]]};
+  var KEY="examen26",P={best:{},mock:{}},X=null;
+  function load(){try{var d=JSON.parse(localStorage.getItem(KEY));if(d&&d.best)P=d;P.mock=P.mock||{}}catch(e){}}
+  function persist(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
+  function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+  function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i})}
+  function opt3(c,w){return [c].concat(shuf(uniq(w.filter(function(t){return t!==c})))).slice(0,3)}
+  function rd(n,p){return Math.round(n/p)*p}
+  function rn(d){return rnd(Math.pow(10,d-1),Math.pow(10,d)-1)}
+  function Qo(m,q,a,x){x=x||{};x.m=m;x.q=q;x.a=a;return x}
+
+  var TX={
+    es:{ready:"Preparación",sim:"📝 Simulacro de examen",obj:"Objetivos del examen",rev:"📖 Repasar",prac:"✏️ Practicar",q:"Pregunta",check:"✔ Comprobar",next:"Siguiente ▶",fin:"Ver resultado 🏁",hint:"💡 Ayuda",
+      pick:"Elige la respuesta que creas.",type:"✍️ Escribe aquí tu respuesta:",calc:"Haz tu cuenta en la zona de cálculo. Cuando termines, pulsa Comprobar: miraré el resultado de tu última cuenta.",
+      fill:"✏️ Escribe tu respuesta.",fillc:"✏️ Haz tu cuenta y escribe el resultado debajo de la raya.",ok:"🎉 ¡Genial!",w1:"🤔 Mira otra vez. ¿Seguro de tu respuesta?",
+      w1c:"🤔 Revisa tu última cuenta. ¿Seguro de que los números y el resultado están bien?",w2:"🤔 Piénsalo con calma. ",ans:"La respuesta es",saved:"✅ Respuesta anotada. ¡Sigue!",
+      mockInfo:"Como en el examen: una sola oportunidad por pregunta y sin ayudas.",grade:"Nota",of:"de",rep:"Repasa estos temas",all:"¡Dominas todos los temas!",wrongs:"Preguntas para revisar",
+      corr:"Respuesta correcta",again:"Volver a practicar",temas:"📚 Temas",prev:"◀ Atrás",nextf:"Siguiente ▶",resP:"Has acertado",resQ:"preguntas",
+      m0:"¡Estás listo para el examen! 🌟",m1:"¡Muy bien! Repasa un poquito más y lo tendrás.",m2:"¡Casi! Repasa los temas de abajo y vuelve a intentarlo.",m3:"Todavía puedes mejorar mucho. ¡Repasa y practica!",
+      hint0:"Lee con calma y piensa qué te piden.",ver:"← Atrás"},
+    ca:{ready:"Preparació",sim:"📝 Simulacre d’examen",obj:"Objectius de l’examen",rev:"📖 Repassar",prac:"✏️ Practicar",q:"Pregunta",check:"✔ Comprovar",next:"Següent ▶",fin:"Veure resultat 🏁",hint:"💡 Ajuda",
+      pick:"Tria la resposta que cregues.",type:"✍️ Escriu ací la teua resposta:",calc:"",fill:"✏️ Escriu la teua resposta.",fillc:"",ok:"🎉 Genial!",w1:"🤔 Mira-ho una altra vegada. Estàs segur de la resposta?",
+      w1c:"",w2:"🤔 Pensa-ho amb calma. ",ans:"La resposta és",saved:"✅ Resposta anotada. Endavant!",mockInfo:"Com a l’examen: una sola oportunitat per pregunta i sense ajudes.",grade:"Nota",of:"de",
+      rep:"Repassa aquests temes",all:"Domines tots els temes!",wrongs:"Preguntes per revisar",corr:"Resposta correcta",again:"Tornar a practicar",temas:"📚 Temes",prev:"◀ Enrere",nextf:"Següent ▶",
+      resP:"Has encertat",resQ:"preguntes",m0:"Estàs preparat per a l’examen! 🌟",m1:"Molt bé! Repassa un poquet més i ho tindràs.",m2:"Quasi! Repassa els temes de baix i torna-ho a provar.",
+      m3:"Encara pots millorar molt. Repassa i practica!",hint0:"Llig amb calma i pensa què et demanen.",ver:"← Enrere"}
+  };
+
+  // ---------- MATES · Tema 2 ----------
+  function gM1(){
+    var a=rnd(20,99),b=rnd(10,60),m=rnd(60,99),r=rnd(10,50),D=m-r,
+        TS=["un sumando","la suma o total","el minuendo","el sustraendo","la diferencia"],L=[];
+    function t(q,c,s){L.push(Qo("opt",q,c,{o:opt3(c,TS),s:s}))}
+    function nn(q,c,w,s){L.push(Qo("opt",q,String(c),{o:opt3(String(c),w.map(String)),s:s}))}
+    t("En la suma "+a+" + "+b+" = "+(a+b)+", ¿cómo se llama el número "+a+"?","un sumando","Los números que se suman son los sumandos.");
+    t("En la suma "+a+" + "+b+" = "+(a+b)+", ¿cómo se llama el número "+(a+b)+"?","la suma o total","El resultado de una suma es la suma o total.");
+    t("En la resta "+m+" − "+r+" = "+D+", ¿cómo se llama el número "+m+"?","el minuendo","El minuendo es el número del que quitas: el primero de la resta.");
+    t("En la resta "+m+" − "+r+" = "+D+", ¿cómo se llama el número "+r+"?","el sustraendo","El sustraendo es el número que quitas.");
+    t("En la resta "+m+" − "+r+" = "+D+", ¿cómo se llama el número "+D+"?","la diferencia","El resultado de una resta es la diferencia.");
+    nn("En "+m+" − "+r+" = "+D+", ¿cuál es el minuendo?",m,[r,D,r+1],"El minuendo es el primer número de la resta: "+m+".");
+    nn("En "+m+" − "+r+" = "+D+", ¿cuál es el sustraendo?",r,[m,D,m+1],"El sustraendo es el número que quitas: "+r+".");
+    nn("En "+m+" − "+r+" = "+D+", ¿cuál es la diferencia?",D,[m,r,m+r],"La diferencia es el resultado de la resta: "+D+".");
+    nn("En "+a+" + "+b+" = "+(a+b)+", ¿cuál es la suma o total?",a+b,[a,b,a+b+10],"La suma o total es el resultado: "+(a+b)+".");
+    t("¿Cómo se llama el número al que le quitas en una resta?","el minuendo","El minuendo es el número del que quitas.");
+    return shuf(L);
+  }
+  function gM2(){
+    var m=rnd(300,9000),r=rnd(100,Math.min(m-100,2999)),D=m-r,bad=D+(Math.random()<.5?-1:1)*rnd(1,9),L=[],okc=Math.random()<.5;
+    L.push(Qo("opt","¿Cuál es la prueba de la resta "+fmt(m)+" − "+fmt(r)+" = "+fmt(D)+"?",fmt(D)+" + "+fmt(r)+" = "+fmt(m),{
+      o:opt3(fmt(D)+" + "+fmt(r)+" = "+fmt(m),[fmt(m)+" + "+fmt(r)+" = "+fmt(m+r),fmt(D)+" − "+fmt(r)+" = "+fmt(D-r),fmt(m)+" + "+fmt(D)+" = "+fmt(m+D)]),
+      s:"Se suman la diferencia y el sustraendo: tiene que salir el minuendo."}));
+    L.push(Qo("calc","Esta resta ya está hecha. Haz la prueba: suma la diferencia y el sustraendo. ¿Cuánto da?",m,{v:{n:[m,r],op:"−",res:D},s:fmt(D)+" + "+fmt(r)+" = "+fmt(m)+", que es el minuendo.",h:"Suma la diferencia y el sustraendo."}));
+    L.push(Qo("opt","En la prueba de la resta sumamos…","el sustraendo y la diferencia",{o:opt3("el sustraendo y la diferencia",["el minuendo y el sustraendo","el minuendo y la diferencia","los dos sumandos"]),s:"Sumamos el sustraendo y la diferencia."}));
+    L.push(Qo("opt","Si en la prueba de la resta sale el minuendo, la resta…","está bien hecha",{o:["está bien hecha","hay que revisarla"],s:"Si la prueba da el minuendo, la resta está bien hecha."}));
+    L.push(Qo("opt","¿Está bien hecha esta resta? Haz la prueba.",okc?"Sí, está bien hecha":"No, hay que revisarla",{v:{n:[m,r],op:"−",res:okc?D:bad},o:["Sí, está bien hecha","No, hay que revisarla"],
+      s:okc?fmt(D)+" + "+fmt(r)+" = "+fmt(m)+": sale el minuendo.":fmt(bad)+" + "+fmt(r)+" = "+fmt(bad+r)+": no sale "+fmt(m)+", hay que revisarla."}));
+    L.push(Qo("opt","En la prueba de la resta, el resultado tiene que ser igual al…","minuendo",{o:opt3("minuendo",["sustraendo","la diferencia","los sumandos"]),s:"La prueba de la resta tiene que dar el minuendo."}));
+    return shuf(L);
+  }
+  function gM3(){
+    var L=[],PA=["las decenas","las centenas","los millares"],a,b,ra,rb,n;
+    [[10,0,11,99],[100,1,101,999],[1000,2,1001,9999],[10,0,11,99],[100,1,101,999]].forEach(function(c){
+      n=rnd(c[2],c[3]);if(n%c[0]===0)n++;
+      var dg=Math.floor(n/(c[0]/10))%10;
+      L.push(Qo("num","Aproxima "+fmt(n)+" a "+PA[c[1]]+".",rd(n,c[0]),{s:"Mira la cifra de la derecha: "+dg+(dg>=5?" es 5 o más, así que se sube.":" es menor que 5, así que se baja."),h:"Compara la cifra de la derecha con 5."}));
+    });
+    a=rn(2);b=rn(2);ra=rd(a,10);rb=rd(b,10);
+    L.push(Qo("calc","Estima esta suma aproximando a las decenas:",ra+rb,{v:{n:[a,b],op:"+"},s:fmt(a)+" → "+ra+" y "+fmt(b)+" → "+rb+". "+ra+" + "+rb+" = "+(ra+rb)+".",h:"Aproxima cada sumando a la decena más cercana y suma."}));
+    a=rn(2);b=rn(2);if(b>a){n=a;a=b;b=n}ra=rd(a,10);rb=rd(b,10);
+    L.push(Qo("calc","Estima esta resta aproximando a las decenas:",ra-rb,{v:{n:[a,b],op:"−"},s:fmt(a)+" → "+ra+" y "+fmt(b)+" → "+rb+". "+ra+" − "+rb+" = "+(ra-rb)+".",h:"Aproxima cada número a la decena más cercana y resta."}));
+    a=rn(3);b=rn(3);ra=rd(a,100);rb=rd(b,100);
+    L.push(Qo("calc","Estima esta suma aproximando a las centenas:",ra+rb,{v:{n:[a,b],op:"+"},s:fmt(a)+" → "+ra+" y "+fmt(b)+" → "+rb+". "+ra+" + "+rb+" = "+(ra+rb)+".",h:"Aproxima cada sumando a la centena más cercana y suma."}));
+    a=rn(2);b=rn(2);if(b>a){n=a;a=b;b=n}ra=rd(a,10);rb=rd(b,10);
+    L.push(Qo("opt","Para estimar "+a+" − "+b+", ¿qué cuenta haces?",ra+" − "+rb,{o:opt3(ra+" − "+rb,[a+" − "+rb,ra+" − "+b,ra+" + "+rb]),s:"Se aproxima cada número y se resta: "+ra+" − "+rb+"."}));
+    return shuf(L);
+  }
+  function gM4(){
+    var a=rnd(2,5),b=a+rnd(1,4),x=rnd(12,60),y=rnd(12,60),p=rn(4),q=rn(3),L=[];
+    L.push(Qo("num","Si "+a+" + "+b+" = "+(a+b)+", ¿cuánto es "+b+" + "+a+"?",a+b,{s:"El orden de los sumandos no cambia la suma."}));
+    L.push(Qo("num","Completa: "+x+" + "+y+" = "+y+" + __",x,{s:"Se cambia el orden de los sumandos: "+x+" + "+y+" = "+y+" + "+x+"."}));
+    L.push(Qo("opt","¿Qué igualdad es un ejemplo de la propiedad conmutativa?",a+" + "+b+" = "+b+" + "+a,{o:opt3(a+" + "+b+" = "+b+" + "+a,[a+" − "+b+" = "+b+" − "+a,a+" + "+b+" = "+b+" + "+b,a+" + "+b+" = "+a+" − "+b]),s:"Es la que cambia el orden de los sumandos."}));
+    L.push(Qo("opt","La propiedad conmutativa dice que si cambias el orden de los sumandos…","el resultado no cambia",{o:["el resultado no cambia","el resultado cambia","el resultado es cero"],s:"La suma no cambia."}));
+    L.push(Qo("opt","¿Se puede cambiar el orden en una resta? Por ejemplo, "+b+" − "+a+" y "+a+" − "+b+".","No, en la resta el orden sí importa",{o:["No, en la resta el orden sí importa","Sí, siempre da lo mismo","Solo con números pares"],s:"La propiedad conmutativa solo vale para la suma."}));
+    L.push(Qo("calc","Calcula esta suma. ¿Da lo mismo que "+fmt(p)+" + "+fmt(q)+"?",p+q,{v:{n:[q,p],op:"+"},s:fmt(q)+" + "+fmt(p)+" = "+fmt(p+q)+": da lo mismo.",h:"Suma en columna: unidades con unidades, decenas con decenas…"}));
+    return shuf(L);
+  }
+  function gM5(){
+    var L=[],d,i,a,b,c,T,k;
+    for(i=0;i<8;i++){
+      d=rnd(2,3);a=rn(d);b=rn(d);c=rn(d);k=i;
+      if(k===0){T=a+b+c;L.push(Qo("calc","Desde Oviedo hasta Almería hay "+fmt(T)+" km. Esta mañana hemos recorrido "+fmt(a)+" km y por la tarde "+fmt(b)+" km. ¿Cuántos km nos faltan?",c,{s:"Recorrido: "+fmt(a)+" + "+fmt(b)+" = "+fmt(a+b)+". Faltan: "+fmt(T)+" − "+fmt(a+b)+" = "+fmt(c)+".",h:"1.º suma lo recorrido. 2.º réstalo al total."}))}
+      if(k===1)L.push(Qo("calc","Al inicio del viaje suben "+fmt(a+b)+" personas al tren. En la parada 1 bajan "+fmt(b)+" y suben "+fmt(c)+". ¿Cuántas personas viajan al salir de la parada 1?",a+c,{s:fmt(a+b)+" − "+fmt(b)+" = "+fmt(a)+" y "+fmt(a)+" + "+fmt(c)+" = "+fmt(a+c)+".",h:"1.º resta las que bajan. 2.º suma las que suben."}));
+      if(k===2)L.push(Qo("calc","En una frutería había una caja con "+fmt(a+b)+" kg de naranjas. Han vendido "+fmt(b)+" kg y han añadido "+fmt(c)+" kg. ¿Cuántos kilos hay ahora?",a+c,{s:fmt(a+b)+" − "+fmt(b)+" = "+fmt(a)+" y "+fmt(a)+" + "+fmt(c)+" = "+fmt(a+c)+".",h:"1.º resta lo vendido. 2.º suma lo añadido."}));
+      if(k===3)L.push(Qo("calc","Compras un cacao de "+fmt(a)+" céntimos y una magdalena de "+fmt(b)+" céntimos. Pagas con "+fmt(a+b+c)+" céntimos. ¿Cuánto te devuelven?",c,{s:fmt(a)+" + "+fmt(b)+" = "+fmt(a+b)+" y "+fmt(a+b+c)+" − "+fmt(a+b)+" = "+fmt(c)+".",h:"1.º suma lo que cuesta todo. 2.º réstalo a lo que pagas."}));
+      if(k===4)L.push(Qo("calc","En enero visitaron el museo "+fmt(a)+" personas, en febrero "+fmt(b)+" y en marzo "+fmt(c)+". ¿Cuántas personas lo visitaron en total?",a+b+c,{s:fmt(a)+" + "+fmt(b)+" + "+fmt(c)+" = "+fmt(a+b+c)+".",h:"Suma las tres cantidades."}));
+      if(k===5)L.push(Qo("calc","Ana tiene "+fmt(a)+" cromos y le regalan "+fmt(b)+". ¿Cuántos cromos tiene ahora?",a+b,{s:fmt(a)+" + "+fmt(b)+" = "+fmt(a+b)+".",h:"Palabras como «le regalan» indican una suma."}));
+      if(k===6)L.push(Qo("calc","En un teatro hay "+fmt(a+b)+" butacas y "+fmt(b)+" están ocupadas. ¿Cuántas butacas están libres?",a,{s:fmt(a+b)+" − "+fmt(b)+" = "+fmt(a)+".",h:"Palabras como «libres» o «quedan» indican una resta."}));
+      if(k===7)L.push(Qo("calc","Pinar tiene "+fmt(a+b)+" habitantes y Tomillo tiene "+fmt(b)+" menos que Pinar. ¿Cuántos habitantes tienen los dos pueblos juntos?",a+b+a,{s:"Tomillo: "+fmt(a+b)+" − "+fmt(b)+" = "+fmt(a)+". Juntos: "+fmt(a+b)+" + "+fmt(a)+" = "+fmt(a+b+a)+".",h:"1.º resta para saber los de Tomillo. 2.º suma los dos pueblos."}));
+    }
+    return shuf(L);
+  }
+
+  // ---------- MEDI · Unitat 2 ----------
+  var IDX={e1:[0,1,5,6,7,8,9,10,11,12,13],e2:[2,3,4],e3:[13,14,15,16,17,34],e4:[18,19,20,22],e5:[21,23,24,25,26],e6:[27,28,29,30,31,32,33],e7:[35,36,37,38,39,40,41,42,43,44,45,46,47]};
+  function mq(i){var x=D.Q[i];return Qo("opt",x[0],x[1],{o:[x[1],x[2],x[3]],s:"La resposta correcta és: "+x[1]+"."})}
+  function base(k){return IDX[k].map(mq)}
+  function gE1(){return shuf(base("e1"))}
+  function gE2(){
+    var L=base("e2"),g=D.C.ali.g;
+    D.C.ali.i.forEach(function(it){L.push(Qo("opt",it[1]+": quin tipus d’alimentació té?",g[it[2]],{o:g.slice(),s:it[1]+" és "+g[it[2]].toLowerCase()+"."}))});
+    return shuf(L);
+  }
+  function gE3(){
+    var L=base("e3"),g=D.C.rep.g;
+    D.C.rep.i.forEach(function(it){L.push(Qo("opt",it[1]+": és ovípar o vivípar?",g[it[2]],{o:g.slice(),s:it[1]+" és "+g[it[2]].toLowerCase()+"."}))});
+    return shuf(L);
+  }
+  function gE4(){
+    var L=base("e4"),g=["Vertebrat","Invertebrat"];
+    D.C.vert.i.forEach(function(it){L.push(Qo("opt",it[1]+": vertebrat o invertebrat?","Vertebrat",{o:g.slice(),s:it[1]+" té columna vertebral: és vertebrat."}))});
+    D.C.inv.i.forEach(function(it){L.push(Qo("opt",it[1]+": vertebrat o invertebrat?","Invertebrat",{o:g.slice(),s:it[1]+" no té columna vertebral: és invertebrat."}))});
+    return shuf(L);
+  }
+  function gE5(){
+    var L=base("e5");
+    ["vert","inv"].forEach(function(k){
+      var c=D.C[k];
+      c.i.forEach(function(it){L.push(Qo("opt","A quin grup pertany: "+it[1]+"?",c.g[it[2]],{o:opt3(c.g[it[2]],c.g),s:it[1]+" pertany als "+c.g[it[2]].toLowerCase()+"."}))});
+    });
+    return shuf(L);
+  }
+  function gE6(){
+    var L=base("e6"),c=D.C.mol;
+    c.i.forEach(function(it){L.push(Qo("opt","A quin grup de mol·luscs pertany: "+it[1]+"?",c.g[it[2]],{o:c.g.slice(),s:it[1]+" és "+c.g[it[2]].toLowerCase()+"."}))});
+    return shuf(L);
+  }
+  function gE7(){return shuf(base("e7"))}
+  function fi(t,js){return js.map(function(j){return D.T[t][3][j]})}
+
+  var SUBJ={
+    mates:{t:"Mates · Tema 2",ic:"🔢",lang:"es",col:"#ff7a45",obj:[
+      {id:"m1",ic:"🏷️",t:"Términos de la suma y de la resta",gen:gM1,f:[["➕","En una suma, los números que sumas se llaman SUMANDOS y el resultado es la SUMA o TOTAL."],["➖","En una resta, el número del que quitas es el MINUENDO, el número que quitas es el SUSTRAENDO y el resultado es la DIFERENCIA."],["✍️","85 − 32 = 53. El 85 es el minuendo, el 32 es el sustraendo y el 53 es la diferencia."],["🧠","Truco: el minuendo es el primero de la resta y es el número más grande."]]},
+      {id:"m2",ic:"✅",t:"Prueba de la resta",gen:gM2,f:[["✅","La prueba de la resta sirve para comprobar que la resta está bien hecha."],["🔁","Se suman el sustraendo y la diferencia: tiene que salir el minuendo."],["✍️","4.152 − 2.534 = 1.618. Prueba: 1.618 + 2.534 = 4.152. ¡Está bien hecha!"],["🔎","Si no sale el minuendo, hay que revisar la resta."]]},
+      {id:"m3",ic:"🎯",t:"Aproximación de los resultados",gen:gM3,f:[["🎯","Aproximar es cambiar un número por otro redondo muy cercano: la decena, la centena o el millar más próximo."],["5️⃣","Mira la cifra de la derecha y compárala con 5. Si es menor que 5, baja. Si es 5 o más, sube."],["🔮","Para estimar una suma o una resta, aproxima cada número y calcula con las aproximaciones."],["✍️","37 + 52 → 40 + 50 = 90. 42 − 28 → 40 − 30 = 10. 387 − 169 → 400 − 200 = 200."]]},
+      {id:"m4",ic:"🔀",t:"Propiedad conmutativa",gen:gM4,f:[["🔀","Propiedad conmutativa: si cambias el orden de los sumandos, la suma no cambia."],["✍️","8 + 3 = 3 + 8 = 11."],["🚫","En la resta NO se cumple: no es lo mismo 8 − 3 que 3 − 8."],["💡","Úsala para sumar más fácil: ordena los sumandos como quieras."]]},
+      {id:"m5",ic:"🧩",t:"Problemas de una o varias operaciones",gen:gM5,f:[["🧩","Un problema puede resolverse con una operación o con varias."],["👣","Pasos: 1) Comprende el problema. 2) Piensa qué debes calcular y en qué orden. 3) Haz las operaciones. 4) Comprueba la solución."],["➕➖","Palabras que ayudan: «en total», «juntos», «añadir» → suma. «Quedan», «faltan», «libres», «menos que» → resta."],["✍️","Oviedo–Almería: 996 km. Recorridos: 436 + 282 = 718. Faltan: 996 − 718 = 278 km."]]}
+    ]},
+    medi:{t:"Medi · Unitat 2",ic:"🌿",lang:"ca",col:"#0e8b8f",obj:[
+      {id:"e1",ic:"🍽️",t:"Funcions vitals dels animals",gen:gE1,f:null},
+      {id:"e2",ic:"🦓",t:"Tipus d’alimentació dels animals",gen:gE2,f:null},
+      {id:"e3",ic:"🥚",t:"Formes de reproducció",gen:gE3,f:null},
+      {id:"e4",ic:"🦴",t:"Diferència entre vertebrat i invertebrat",gen:gE4,f:null},
+      {id:"e5",ic:"🐠",t:"Tipus de vertebrats i invertebrats",gen:gE5,f:null},
+      {id:"e6",ic:"🐌",t:"Mol·luscs (cos i closca)",gen:gE6,f:null},
+      {id:"e7",ic:"🦋",t:"Artròpodes",gen:gE7,f:null}
+    ]}
+  };
+  (function(){var F={e1:fi(0,[0,4,5]).concat(fi(1,[0,1,2])),e2:fi(0,[0,1,2,3]),e3:fi(1,[3,4,5]),e4:fi(2,[0,1]).concat(fi(3,[0])),e5:fi(2,[2,3,4]).concat(fi(3,[1,2,3,4])),e6:D.T[4][3],e7:D.T[5][3]};
+    SUBJ.medi.obj.forEach(function(o){o.f=F[o.id]})})();
+
+  function findObj(sid,oid){return SUBJ[sid].obj.filter(function(o){return o.id===oid})[0]}
+  function pct(id){return P.best[id]||0}
+  function subjPct(sid){var o=SUBJ[sid].obj;return Math.round(o.reduce(function(a,x){return a+pct(x.id)},0)/o.length)}
+  var app=$("app");
+  function render(h){app.innerHTML=h;window.scrollTo(0,0)}
+  function head(title,back){return '<div class="card"><div class="top"><h2>'+title+'</h2>'+(back?'<button class="btn ghost sm" data-a="'+back+'">←</button>':'')+'</div></div>'}
+
+  function home(){
+    render('<div class="card center"><div class="mascot big">🦊</div><h1>Preparació de l’examen</h1><p class="mut">Preparación del examen · Tema 2 / Unitat 2</p></div>'+
+      Object.keys(SUBJ).map(function(k){var s=SUBJ[k];return '<button class="sbig" data-a="subj:'+k+'" style="background:'+s.col+'"><span class="bi">'+s.ic+'</span><span><span class="bt">'+s.t+'</span><span class="bd">'+TX[s.lang].ready+': '+subjPct(k)+'%</span></span></button>'}).join(""));
+  }
+  function subj(sid){
+    var s=SUBJ[sid],t=TX[s.lang],p=subjPct(sid);
+    render(head(s.ic+" "+s.t,"home")+'<div class="card"><h2>'+t.obj+'</h2><div class="sbar"><div style="width:'+p+'%"></div></div><p class="mut">'+t.ready+': '+p+'%'+(P.mock[sid]?' · '+t.grade+': '+P.mock[sid]:'')+'</p><button class="btn" data-a="mock:'+sid+'">'+t.sim+'</button><p class="mut center">'+t.mockInfo+'</p></div>'+
+      s.obj.map(function(o,i){var c=pct(o.id);return '<div class="card orow"><div class="oh"><span class="on">'+(i+1)+'</span><b>'+o.ic+' '+esc(o.t)+'</b><span class="pc">'+(c>=80?'✅ ':'')+c+'%</span></div><div class="snav"><button class="btn ghost sm" data-a="study:'+sid+':'+o.id+':0">'+t.rev+'</button><button class="btn blue sm" data-a="prac:'+sid+':'+o.id+'">'+t.prac+'</button></div></div>'}).join(""));
+  }
+  function study(sid,oid,j){
+    var s=SUBJ[sid],o=findObj(sid,oid),t=TX[s.lang],f=o.f,n=f.length,last=j===n-1;
+    render(head(o.ic+" "+esc(o.t),"subj:"+sid)+'<div class="card"><div class="sbar"><div style="width:'+((j+1)/n*100)+'%"></div></div><div class="scard" style="border-top-color:'+s.col+'"><div class="sic" style="font-size:'+(f[j][0].length>4?36:60)+'px">'+f[j][0]+'</div><div class="stx">'+esc(f[j][1])+'</div></div><div class="snav"><button class="btn ghost sm" '+(j?'data-a="study:'+sid+':'+oid+':'+(j-1)+'"':'disabled')+'>'+t.prev+'</button>'+
+      (last?'<button class="btn blue sm" data-a="prac:'+sid+':'+oid+'">'+t.prac+'</button>':'<button class="btn blue sm" data-a="study:'+sid+':'+oid+':'+(j+1)+'">'+t.nextf+'</button>')+'</div>'+(last?'<button class="btn ghost sm" style="width:100%" data-a="subj:'+sid+'">'+t.temas+'</button>':'')+'</div>');
+  }
+
+  // ---------- Preguntas ----------
+  function mockQs(sid){
+    var out=[],pools=SUBJ[sid].obj.map(function(o){return shuf(o.gen()).map(function(q){q.ob=o.id;return q})}),i=0,g=0;
+    pools.forEach(function(p){out.push(p.shift())});
+    while(out.length<10&&g<300){var p=pools[i%pools.length];if(p.length)out.push(p.shift());i++;g++}
+    return shuf(out).slice(0,10);
+  }
+  function start(sid,mode,oid){
+    var s=SUBJ[sid],qs,o;
+    if(mode==="prac"){o=findObj(sid,oid);qs=shuf(o.gen()).slice(0,6).map(function(q){q.ob=oid;return q})}
+    else qs=mockQs(sid);
+    qs.forEach(function(q){if(!q.h){var ob=findObj(sid,q.ob),f=ob.f;q.h=(s.lang==="ca"?"Recorda: ":"Recuerda: ")+f[rnd(0,f.length-1)][1]}});
+    X={sid:sid,mode:mode,oid:oid,lang:s.lang,qs:qs,i:-1,ok:0,res:[],help:false,done:false,calc:null};
+    nextQ();
+  }
+  function nextQ(){
+    X.i++;
+    if(X.i>=X.qs.length){finish();return}
+    var q=X.qs[X.i],t=TX[X.lang],mock=X.mode==="mock",b,bx;
+    X.done=false;X.tries=0;X.calc=null;
+    render(head((mock?t.sim:"✏️ "+esc(findObj(X.sid,q.ob).t)),"subj:"+X.sid)+'<div class="card"><div class="top"><span>'+t.q+' '+(X.i+1)+'/'+X.qs.length+'</span><span>'+(mock?"📝":"")+'</span></div><div id="qb"></div><div class="say"><div class="mascot sm">🦊</div><div class="bubble" id="qm"></div></div><button class="btn" id="qc" data-a="check">'+t.check+'</button><button class="btn blue hide" id="qn" data-a="next"></button>'+(mock?'':'<button class="btn ghost sm" id="qh" data-a="hint" style="width:100%">'+t.hint+'</button>')+'</div>');
+    b=$("qb");
+    b.appendChild(el("qtext",q.q));
+    if(q.v)b.appendChild(el("vop",vert(q.v.n,q.v.op,q.v.res)));
+    if(q.m==="opt"){
+      bx=el("opts");
+      shuf(q.o).forEach(function(o){var bt=document.createElement("button");bt.className="opt";bt.textContent=o;bt.onclick=function(){answer(o,bt)};bx.appendChild(bt)});
+      b.appendChild(bx);$("qc").classList.add("hide");
+      setMsg(t.pick,"info","qm");
+    }else if(q.m==="calc"){
+      X.calc=calcPanel();b.appendChild(X.calc);setMsg(t.calc,"info","qm");
+    }else{
+      b.appendChild(el("alab",t.type));
+      var inp=document.createElement("input");inp.className="qin";inp.id="qin";inp.inputMode="numeric";inp.placeholder="…";inp.autocomplete="off";
+      inp.onkeydown=function(e){if(e.key==="Enter")answer()};
+      b.appendChild(inp);setMsg(t.type.replace("✍️ ",""),"info","qm");inp.focus();
+    }
+  }
+  function lock(){document.querySelectorAll("#qb .qin,#qb .opt").forEach(function(e){e.disabled=true})}
+  function doneBtns(){
+    var t=TX[X.lang];
+    $("qc").classList.add("hide");if($("qh"))$("qh").classList.add("hide");
+    $("qn").textContent=X.i>=X.qs.length-1?t.fin:t.next;$("qn").classList.remove("hide");
+  }
+  function answer(v,bt){
+    if(X.done)return;
+    var q=X.qs[X.i],t=TX[X.lang],ok;
+    if(v===undefined){
+      if(q.m==="calc"){v=X.calc.last();if(v===null){setMsg(t.fillc,"doubt","qm");return}}
+      else{v=$("qin").value;if(!String(v).trim()){setMsg(t.fill,"doubt","qm");return}}
+    }
+    ok=q.m==="opt"?v===q.a:parseInt(String(v).replace(/[.\s]/g,""),10)===q.a;
+    if(X.mode==="mock"){
+      X.done=true;X.res.push({q:q,ok:ok});if(ok)X.ok++;lock();setMsg(t.saved,"info","qm");doneBtns();return;
+    }
+    if(ok){X.done=true;X.ok++;X.res.push({q:q,ok:true});setMsg(t.ok+" "+(q.s||""),"ok","qm");confetti();lock();doneBtns();return}
+    X.tries++;if(bt)bt.disabled=true;
+    if(X.tries>=3||(q.m==="opt"&&q.o.length<=2)){
+      X.done=true;X.res.push({q:q,ok:false});
+      setMsg(t.ans+" "+(q.m==="opt"?q.a:fmt(q.a))+". "+(q.s||""),"info","qm");lock();doneBtns();
+    }else if(X.tries===1)setMsg(q.m==="calc"?t.w1c:t.w1,"doubt","qm");
+    else setMsg(t.w2+(q.h||""),"doubt","qm");
+  }
+  function hint(){if(X.done)return;X.help=true;setMsg("💡 "+(X.qs[X.i].h||TX[X.lang].hint0),"info","qm")}
+
+  function finish(){
+    var t=TX[X.lang],n=X.qs.length,p=Math.round(X.ok/n*100),s=SUBJ[X.sid],h,by={},g,bad,msg;
+    if(X.mode==="prac"){
+      if(p>(P.best[X.oid]||0))P.best[X.oid]=p;persist();
+      var st=p>=90?3:p>=60?2:p>=30?1:0;
+      if(p>=60)confetti();
+      render(head("✏️ "+esc(findObj(X.sid,X.oid).t),"subj:"+X.sid)+'<div class="card center"><div class="mascot big">🦊</div><div class="bigstars">'+stars(st)+'</div><p>'+t.resP+' <b>'+X.ok+'</b> '+t.of+' '+n+' '+t.resQ+' ('+p+'%).</p><button class="btn" data-a="prac:'+X.sid+':'+X.oid+'">'+t.again+'</button><button class="btn blue" data-a="study:'+X.sid+':'+X.oid+':0">'+t.rev+'</button><button class="btn ghost" data-a="subj:'+X.sid+'">'+t.temas+'</button></div>');
+      return;
+    }
+    X.res.forEach(function(r){var o=by[r.q.ob]=by[r.q.ob]||{n:0,ok:0};o.n++;if(r.ok)o.ok++});
+    s.obj.forEach(function(o){if(by[o.id]){var c=Math.round(by[o.id].ok/by[o.id].n*100);if(c>(P.best[o.id]||0))P.best[o.id]=c}});
+    g=Math.round(X.ok/n*100)/10;
+    if(g>(P.mock[X.sid]||0))P.mock[X.sid]=g;
+    persist();
+    msg=g>=9?t.m0:g>=7?t.m1:g>=5?t.m2:t.m3;
+    bad=X.res.filter(function(r){return !r.ok});
+    if(g>=7)confetti();
+    render(head("📝 "+s.t,"subj:"+X.sid)+'<div class="card center"><div class="mascot big">🦊</div><h2>'+t.grade+': '+String(g).replace(".",",")+' '+t.of+' 10</h2><p>'+msg+'</p></div>'+
+      '<div class="card">'+s.obj.map(function(o){var d=by[o.id]||{n:0,ok:0},c=d.n?Math.round(d.ok/d.n*100):0;return '<div class="orow2"><span>'+o.ic+' '+esc(o.t)+'</span><div class="sbar"><div style="width:'+c+'%"></div></div><b>'+c+'%</b></div>'}).join("")+'</div>'+
+      (s.obj.filter(function(o){var d=by[o.id];return d&&d.ok/d.n<0.7}).length?'<div class="card"><h2>'+t.rep+'</h2>'+s.obj.filter(function(o){var d=by[o.id];return d&&d.ok/d.n<0.7}).map(function(o){return '<button class="btn ghost sm" style="width:100%" data-a="study:'+X.sid+':'+o.id+':0">📖 '+esc(o.t)+'</button>'}).join("")+'</div>':'<div class="card center"><h2>'+t.all+'</h2></div>')+
+      (bad.length?'<div class="card"><h2>'+t.wrongs+'</h2>'+bad.map(function(r){var q=r.q;return '<div class="wr"><b>'+esc(q.q)+'</b>'+(q.v?'<div class="vop">'+esc(vert(q.v.n,q.v.op,q.v.res))+'</div>':'')+'<div class="ok2">'+t.corr+': '+esc(q.m==="opt"?q.a:fmt(q.a))+'</div><div class="mut">'+esc(q.s||"")+'</div></div>'}).join("")+'</div>':'')+
+      '<button class="btn" data-a="mock:'+X.sid+'">'+t.again+'</button><button class="btn ghost" data-a="subj:'+X.sid+'">'+t.temas+'</button>');
+  }
+
+  app.addEventListener("click",function(e){
+    var b=e.target.closest("[data-a]");if(!b||b.disabled)return;
+    var p=b.dataset.a.split(":");
+    switch(p[0]){
+      case"home":home();break;
+      case"subj":subj(p[1]);break;
+      case"study":study(p[1],p[2],+p[3]||0);break;
+      case"prac":start(p[1],"prac",p[2]);break;
+      case"mock":start(p[1],"mock");break;
+      case"next":nextQ();break;
+      case"check":answer();break;
+      case"hint":hint();break;
+    }
+  });
+  load();home();
+
+})();
+</script>
+</body>
+</html>
